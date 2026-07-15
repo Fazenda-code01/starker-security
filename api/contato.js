@@ -1,22 +1,3 @@
-// api/contato.js
-// Função serverless da Vercel. Recebe o POST do formulário, filtra spam e
-// grava no Supabase usando a service_role key (nunca exposta ao navegador).
-//
-// ATENÇÃO: Turnstile removido a pedido. O formulário agora depende só de:
-//   - honeypot (campo "website")
-//   - rate limit real via Upstash (5 tentativas/min por IP)
-//   - validação e sanitização server-side
-// Isso é mais fraco contra bots automatizados do que com Turnstile.
-// Se notar spam na tabela "leads", vale reconsiderar reativar o Turnstile.
-//
-// Dependências necessárias (já devem estar no package.json):
-//   @upstash/redis
-//   @upstash/ratelimit
-//
-// Variáveis de ambiente necessárias (Vercel > Settings > Environment Variables):
-//   UPSTASH_REDIS_REST_URL
-//   UPSTASH_REDIS_REST_TOKEN
-
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
 import { Redis } from '@upstash/redis';
@@ -24,11 +5,9 @@ import { Ratelimit } from '@upstash/ratelimit';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY // NUNCA a anon key aqui — só no servidor
+  process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Rate limit real e persistente entre instâncias serverless.
-// 5 tentativas por IP a cada 60 segundos.
 const ratelimit = new Ratelimit({
   redis: new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL,
@@ -48,8 +27,6 @@ function sanitizar(str, max = 2000) {
   return str.trim().slice(0, max);
 }
 
-// Escapa HTML para evitar XSS armazenado caso esses dados sejam exibidos
-// depois em um painel admin, email em HTML, etc.
 function escaparHtml(str) {
   if (typeof str !== 'string') return '';
   return str
@@ -60,10 +37,30 @@ function escaparHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-// Validação simples de telefone/WhatsApp
 function validarWhatsapp(str) {
-  if (!str) return true; // campo opcional
+  if (!str) return true;
   return /^[\d\s()+-]{8,20}$/.test(str);
+}
+
+async function notificarWhatsapp(nome, servico, whatsapp) {
+  if (!process.env.CALLMEBOT_PHONE || !process.env.CALLMEBOT_APIKEY) {
+    return;
+  }
+
+  try {
+    const meuNumero = process.env.CALLMEBOT_PHONE;
+    const apiKey = process.env.CALLMEBOT_APIKEY;
+    const texto = `Novo lead: ${nome} - ${servico || 'sem serviço definido'} - ${whatsapp || 'sem whatsapp'}`;
+    const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(meuNumero)}&text=${encodeURIComponent(texto)}&apikey=${encodeURIComponent(apiKey)}`;
+
+    const resp = await fetch(url, { method: 'GET' });
+
+    if (!resp.ok) {
+      console.error(`Erro ao enviar alerta de WhatsApp: status ${resp.status}`);
+    }
+  } catch (whatsappError) {
+    console.error('Erro ao enviar alerta de WhatsApp:', whatsappError.message);
+  }
 }
 
 export default async function handler(req, res) {
@@ -94,7 +91,6 @@ export default async function handler(req, res) {
       return res.status(413).json({ erro: 'Requisição muito grande' });
     }
 
-    // Honeypot: campo invisível que só bots preenchem. Se vier preenchido, finge sucesso.
     if (body.website) {
       return res.status(200).json({ ok: true });
     }
@@ -163,6 +159,8 @@ export default async function handler(req, res) {
         console.error('Erro ao enviar alerta de email:', emailError.message);
       }
     }
+
+    await notificarWhatsapp(nome, servico, whatsapp);
 
     return res.status(200).json({ ok: true });
   } catch (err) {
