@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pentest ético autorizado e auditoria de segurança ofensiva. Testes de invasão com contrato, escopo definido e relatório profissional para LGPD, ISO 27001 e PCI-DSS.">
+    <meta property="og:title" content="STARKER Security - Pentest Ético & Segurança Ofensiva">
+    <meta property="og:description" content="Testes de invasão autorizados, com contrato e escopo definido. Metodologia própria de mapeamento de superfície de ataque.">
+    <meta property="og:type" content="website">
+    <title>STARKER Security - Pentest Ético & Segurança Ofensiva</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
+        header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 28px; font-weight: bold; color: #00ff88; }
+        nav a { color: white; text-decoration: none; margin-left: 30px; transition: color 0.3s; }
+        nav a:hover { color: #00ff88; }
+        .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 100px 20px; text-align: center; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; color: #00ff88; }
+        .hero p { font-size: 20px; margin-bottom: 30px; color: #ccc; }
+        .cta-button { display: inline-block; background: #00ff88; color: #1a1a2e; padding: 15px 40px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 18px; transition: all 0.3s; }
+        .cta-button:hover { background: #00dd66; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,255,136,0.3); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 20px; }
+        section h2 { font-size: 36px; margin-bottom: 50px; text-align: center; color: #1a1a2e; }
+        .servicos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .servico-card { background: white; border: 2px solid #eee; border-radius: 10px; padding: 30px; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .servico-card:hover { border-color: #00ff88; box-shadow: 0 10px 30px rgba(0,255,136,0.2); transform: translateY(-5px); }
+        .servico-card h3 { color: #1a1a2e; margin-bottom: 15px; font-size: 24px; }
+        .servico-card p { color: #666; margin-bottom: 20px; }
+        .preco { font-size: 24px; font-weight: bold; color: #00ff88; margin: 20px 0; }
+        .metodologia { background: #f5f5f5; }
+        .metodo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+        .metodo-item { background: white; padding: 25px; border-left: 5px solid #00ff88; border-radius: 5px; }
+        .metodo-item h3 { color: #1a1a2e; margin-bottom: 10px; }
+        .portfolio { background: white; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .portfolio-item { background: #f9f9f9; padding: 25px; border-radius: 10px; border: 1px solid #eee; }
+        .portfolio-item h3 { color: #1a1a2e; margin-bottom: 10px; }
+        .portfolio-item .tag { display: inline-block; background: #e0f2f1; color: #00695c; padding: 5px 12px; border-radius: 20px; font-size: 12px; margin-top: 10px; margin-right: 5px; }
+        .pricing { background: #f5f5f5; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .pricing-card { background: white; padding: 40px; border-radius: 10px; border: 2px solid #eee; text-align: center; }
+        .pricing-card.featured { border-color: #00ff88; box-shadow: 0 10px 30px rgba(0,255,136,0.2); }
+        .pricing-card h3 { color: #1a1a2e; margin-bottom: 15px; font-size: 28px; }
+        .pricing-card .valor { font-size: 36px; color: #00ff88; font-weight: bold; margin: 20px 0; }
+        .pricing-card ul { text-align: left; color: #666; margin: 30px 0; }
+        .pricing-card li { padding: 8px 0; border-bottom: 1px solid #eee; }
+        .jv { background: white; }
+        .jv-content { background: #f9f9f9; padding: 40px; border-radius: 10px; margin-top: 30px; border-left: 5px solid #00ff88; }
+        .jv-content h3 { color: #1a1a2e; margin-bottom: 15px; font-size: 24px; }
+        .contato { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; }
+        .contato h2 { color: #00ff88; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 16px; }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-group button { background: #00ff88; color: #1a1a2e; padding: 12px 30px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .form-group button:hover { background: #00dd66; transform: translateY(-2px); }
+        .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 40px; }
+        .contact-item { text-align: center; }
+        .contact-item h3 { color: #00ff88; margin-bottom: 10px; }
+        footer { background: #0f0f1e; color: white; text-align: center; padding: 20px; margin-top: 50px; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .header-content { flex-direction: column; gap: 15px; }
+            nav a { margin-left: 12px; margin-right: 12px; display: inline-block; padding: 6px 0; }
+            section { padding: 40px 20px; }
+            .cta-button { width: 100%; padding: 16px 20px; min-height: 44px; }
+            .form-group input, .form-group textarea, .form-group select { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">🛡️ STARKER Security</div>
+            <nav>
+                <a href="#servicos">Serviços</a>
+                <a href="#como-funciona">Como Funciona</a>
+                <a href="#metodologia">Metodologia</a>
+                <a href="#pricing">Preços</a>
+                <a href="#jv">Parcerias</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </div>
+    </header>
+    <section class="hero">
+        <h1>Pentest Ético para seu Negócio</h1>
+        <p>Testes de invasão <strong>autorizados</strong>, com contrato e escopo definido | Metodologia própria de mapeamento de superfície de ataque | Relatório pronto para LGPD, ISO 27001 e PCI-DSS</p>
+        <a href="#contato" class="cta-button">Solicitar Auditoria</a>
+        <p style="margin-top: 20px; font-size: 14px; color: #999;">🔒 Todo serviço é iniciado somente após termo de autorização assinado pelo responsável legal pela rede/ativo testado.</p>
+    </section>
+    <section id="como-funciona" style="background: #f5f5f5;">
+        <div class="container">
+            <h2>Como Funciona</h2>
+            <p style="text-align: center; color: #666; font-size: 18px; margin-bottom: 40px;">Todo trabalho segue um processo formal — sem exceções.</p>
+            <div class="metodo-grid">
+                <div class="metodo-item"><h3>1. Termo de Autorização</h3><p>Você assina um documento confirmando que é o responsável legal pela rede/ativo e autoriza os testes</p></div>
+                <div class="metodo-item"><h3>2. Escopo Definido</h3><p>Acordamos por escrito o que será testado, janelas de horário e limites — nada fora do combinado</p></div>
+                <div class="metodo-item"><h3>3. Execução</h3><p>Testes conduzidos com sigilo e sem interromper sua operação</p></div>
+                <div class="metodo-item"><h3>4. Relatório com Sigilo</h3><p>Documento técnico confidencial, com NDA se necessário, e nenhum dado retido após entrega</p></div>
+            </div>
+        </div>
+    </section>
+    <section id="servicos">
+        <div class="container">
+            <h2>Serviços</h2>
+            <div class="servicos">
+                <div class="servico-card"><h3>🔍 Reconnaissance</h3><p>Mapeamento completo de superfície de ataque usando Nmap + Grafo correlacionador</p><p>Entrega: Relatório de hosts, portas, serviços e vulns potenciais</p><div class="preco">R$ 200-500</div></div>
+                <div class="servico-card"><h3>🎯 Penetração Básica</h3><p>Teste de credenciais padrão, RTSP, SMB, WiFi. Sem exploração avançada</p><p>Ideal para: Comércios, lanchonetes, pequenos escritórios</p><div class="preco">R$ 500-1.500</div></div>
+                <div class="servico-card"><h3>⚔️ Penetração Completa</h3><p>Acesso à rede, escalação de privilégio, movimentação lateral, exfiltração</p><p>Relatório final com roadmap de remediação</p><div class="preco">R$ 1.500-3.000</div></div>
+                <div class="servico-card"><h3>🏢 Auditoria de Segurança</h3><p>Análise completa de rede, servidores, aplicações. Foco em conformidade</p><p>Escopo customizado conforme tamanho da rede</p><div class="preco">Sob consulta</div></div>
+                <div class="servico-card"><h3>📊 Relatório Formal</h3><p>Documento PDF profissional com screenshots, análise técnica, recomendações</p><p>Pronto para apresentar a investidores, compliance, LGPD</p><div class="preco">Incluído</div></div>
+                <div class="servico-card"><h3>🤝 Suporte Pós-Auditoria</h3><p>Consultoria de 30 dias: validação de correções, testes de remediação</p><p>Acompanhamento de implementação das recomendações</p><div class="preco">+R$ 300/mês</div></div>
+            </div>
+        </div>
+    </section>
+    <section id="metodologia" class="metodologia">
+        <div class="container">
+            <h2>Metodologia</h2>
+            <p style="text-align: center; color: #666; font-size: 18px; margin-bottom: 40px;">Não usamos scanners genéricos. Nossa abordagem combina recon com análise gráfica de superfície de ataque.</p>
+            <div class="metodo-grid">
+                <div class="metodo-item"><h3>1. Nmap + Grafo</h3><p>Scan de rede completo gerando grafo correlacionador que mapeia relações entre ativos</p></div>
+                <div class="metodo-item"><h3>2. Path Analysis</h3><p>Identificamos o caminho mais fácil de exploração (easiest-path) usando algoritmo de custo</p></div>
+                <div class="metodo-item"><h3>3. Exploit Seletivo</h3><p>Testes focados nos caminhos identificados. Sem noise, com metodologia precisa</p></div>
+                <div class="metodo-item"><h3>4. STARKER Audit</h3><p>Framework próprio com módulos: XSS, SQLi, proxy, detecção de frameworks</p></div>
+                <div class="metodo-item"><h3>5. Relatório Técnico</h3><p>Documentação profissional com screenshots, CVSS score, recomendações prioritárias</p></div>
+                <div class="metodo-item"><h3>6. Validação Final</h3><p>Confirmação de cada achado. Sem false positives. Pronto para LGPD/compliance</p></div>
+            </div>
+        </div>
+    </section>
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>Portfólio (Em Construção)</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 40px;">Projetos documentados (dados do cliente ofuscados)</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item"><h3>Auditoria Câmera IP</h3><p>Identificação de vulnerabilidade RTSP em firmware de câmeras AltoBeam. Credencial padrão + protocolo quebrado (405).</p><span class="tag">RTSP</span><span class="tag">Firmware</span><span class="tag">Credential Test</span></div>
+                <div class="portfolio-item"><h3>Mapeamento de Rede Doméstica</h3><p>Recon de rede 192.168.0.0/24 identificando 11 hosts. Correlação de fingerprints entre câmeras irmãs.</p><span class="tag">Nmap</span><span class="tag">Grafo</span><span class="tag">Fingerprint</span></div>
+                <div class="portfolio-item"><h3>Framework STARKER v8</h3><p>Ferramenta de scanning customizada com módulos XSS, SQLi, proxy detection, framework identification.</p><span class="tag">Python</span><span class="tag">Custom Scanner</span><span class="tag">Open Source</span></div>
+            </div>
+        </div>
+    </section>
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Preços & Pacotes</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card"><h3>Básico</h3><p>Ideal para testar antes de contratar</p><div class="valor">R$ 200</div><ul><li>✓ Nmap scan completo</li><li>✓ Relatório de portas abertas</li><li>✓ Serviços identificados</li><li>✓ Riscos óbvios apontados</li><li>✗ Testes de exploração</li></ul><button class="cta-button" onclick="abrirContato('Básico')">Contratar</button></div>
+                <div class="pricing-card featured"><h3>Intermediário</h3><p>Mais popular • Teste real de vulnerabilidades</p><div class="valor">R$ 800</div><ul><li>✓ Tudo do Básico</li><li>✓ Teste de credenciais padrão</li><li>✓ Vulnerability scan</li><li>✓ RTSP/SMB/WiFi test</li><li>✓ Relatório PDF profissional</li></ul><button class="cta-button" onclick="abrirContato('Intermediário')">Contratar</button></div>
+                <div class="pricing-card"><h3>Avançado</h3><p>Penetração completa com exploração</p><div class="valor">R$ 2.000+</div><ul><li>✓ Tudo do Intermediário</li><li>✓ Acesso à rede (se aplicável)</li><li>✓ Escalação de privilégio</li><li>✓ Movimentação lateral</li><li>✓ Suporte pós-auditoria 30 dias</li></ul><button class="cta-button" onclick="abrirContato('Avançado')">Contratar</button></div>
+            </div>
+        </div>
+    </section>
+    <section id="jv" class="jv">
+        <div class="container">
+            <h2>Parcerias & Joint Venture</h2>
+            <div class="jv-content">
+                <h3>Procuramos</h3>
+                <p><strong>Resellers / Agências de TI:</strong> Revenda de serviços de pentesting com margem de 30-40%. Suporte técnico e relatórios fornecidos.<br><br><strong>Consultores de Compliance:</strong> Parceria em auditorias que exigem segurança ofensiva (LGPD, ISO 27001, PCI-DSS).<br><br><strong>Empresas de Segurança:</strong> White-label de relatórios + nossa metodologia em seus clientes.<br><br><strong>Desenvolvedoras:</strong> Teste de segurança integrado no pipeline de entrega de aplicações.<br><br><strong>Bug Bounty / Offensive Security:</strong> Formação de equipe colaborativa em caçadas de vulnerabilidades.</p>
+            </div>
+            <div class="jv-content" style="margin-top: 20px;">
+                <h3>O Que Oferecemos</h3>
+                <ul style="color: #666; margin-left: 20px;">
+                    <li>✓ Relatórios técnicos personalizáveis com logo do parceiro</li>
+                    <li>✓ Suporte contínuo via WhatsApp/Email</li>
+                    <li>✓ Treinamento em ferramenta STARKER</li>
+                    <li>✓ Metodologia documentada e pronta para escalar</li>
+                    <li>✓ Garantia de qualidade: sem false positives</li>
+                </ul>
+            </div>
+            <p style="text-align: center; margin-top: 30px; color: #666;">Interessado em parceria? <strong><a href="#contato" style="color: #00ff88;">Entre em contato conosco</a></strong></p>
+        </div>
+    </section>
+    <section id="contato" class="contato">
+        <div class="container">
+            <h2>Solicitar Auditoria</h2>
+            <form id="contactForm" style="max-width: 600px; margin: 0 auto;">
+                <div class="form-group"><label for="nome">Nome</label><input type="text" id="nome" name="nome" required></div>
+                <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
+                <div class="form-group"><label for="whatsapp">WhatsApp</label><input type="tel" id="whatsapp" name="whatsapp" placeholder="(XX) 9XXXX-XXXX"></div>
+                <div class="form-group"><label for="empresa">Empresa</label><input type="text" id="empresa" name="empresa"></div>
+                <div class="form-group">
+                    <label for="servico">Serviço Interessado</label>
+                    <select id="servico" name="servico" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
+                        <option value="">Selecione...</option>
+                        <option value="Básico">Reconnaissance Básico</option>
+                        <option value="Intermediário">Penetração Intermediária</option>
+                        <option value="Avançado">Penetração Avançada</option>
+                        <option value="Customizado">Escopo Customizado</option>
+                        <option value="JV">Parceria / JV</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="mensagem">Detalhes da Solicitação</label><textarea id="mensagem" name="mensagem" placeholder="Descreva sua rede, tipo de negócio, principais ativos a auditar..."></textarea></div>
+                <div class="form-group" style="display: flex; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="autorizacao" name="autorizacao" required style="width: auto; margin-top: 5px;">
+                    <label for="autorizacao" style="font-weight: normal; margin-bottom: 0;">Confirmo que sou proprietário(a) ou responsável legal autorizado pela rede/ativo a ser testado, ou que possuo autorização por escrito do responsável.</label>
+                </div>
+                <div class="form-group"><button type="submit">Enviar Solicitação</button></div>
+            </form>
+            <div class="contact-info">
+                <div class="contact-item"><h3>📱 WhatsApp</h3><p><a href="https://wa.me/5592981660856" style="color: #00ff88;">92 8166-0856</a></p></div>
+                <div class="contact-item"><h3>📧 Email</h3><p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=tavaresh240@gmail.com" target="_blank" style="color: #00ff88;">tavaresh240@gmail.com</a></p></div>
+                <div class="contact-item"><h3>📍 Localização</h3><p><a href="https://share.google/W1LM7rZKCsB0h4g3g" target="_blank" style="color: #00ff88;">Poranga, Itacoatiara - AM</a></p></div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2026 STARKER Security - Pentest Ético. Todos os direitos reservados. | Testes conduzidos mediante autorização formal</p>
+    </footer>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                empresa: document.getElementById('empresa').value,
+                servico: document.getElementById('servico').value,
+                mensagem: document.getElementById('mensagem').value,
+                autorizacao: document.getElementById('autorizacao').checked
+            };
+            try {
+                const response = await fetch('/api/contato', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                if (response.ok) {
+                    alert('Contato recebido! Entraremos em contato em breve.');
+                    document.getElementById('contactForm').reset();
+                } else {
+                    throw new Error('Endpoint indisponível');
+                }
+            } catch (error) {
+                // Fallback: se o endpoint /api/contato não existir (ex: site estático),
+                // reenvia via WhatsApp para não perder o lead.
+                console.error('Erro ao enviar via API, usando fallback WhatsApp:', error);
+                const texto = encodeURIComponent(
+                    `Nova solicitação via site:\nNome: ${formData.nome}\nEmail: ${formData.email}\nWhatsApp: ${formData.whatsapp}\nEmpresa: ${formData.empresa}\nServiço: ${formData.servico}\nMensagem: ${formData.mensagem}`
+                );
+                window.open(`https://wa.me/5592981660856?text=${texto}`, '_blank');
+                alert('Abrindo o WhatsApp para finalizar sua solicitação.');
+                document.getElementById('contactForm').reset();
+            }
+        });
+        function abrirContato(servico) {
+            document.getElementById('servico').value = servico;
+            document.getElementById('contato').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
