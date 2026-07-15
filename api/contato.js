@@ -1,6 +1,7 @@
 // api/contato.js
-// Função serverless da Vercel. Recebe o POST do formulário, valida, filtra spam
-// e grava no Supabase usando a service_role key (nunca exposta ao navegador).
+// Função serverless da Vercel. Recebe o POST do formulário, valida (incluindo
+// Turnstile anti-bot), filtra spam e grava no Supabase usando a service_role key
+// (nunca exposta ao navegador).
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
 
@@ -33,6 +34,31 @@ function sanitizar(str, max = 2000) {
   return str.trim().slice(0, max);
 }
 
+// Valida o token do Turnstile direto com a API da Cloudflare
+async function validarTurnstile(token, ip) {
+  if (!token) return false;
+
+  try {
+    const resposta = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          secret: process.env.TURNSTILE_SECRET_KEY,
+          response: token,
+          remoteip: ip,
+        }),
+      }
+    );
+    const data = await resposta.json();
+    return data.success === true;
+  } catch (err) {
+    console.error('Erro ao validar Turnstile:', err.message);
+    return false; // em caso de dúvida, bloqueia
+  }
+}
+
 export default async function handler(req, res) {
   // Cabeçalhos de segurança básicos
   res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -56,6 +82,14 @@ export default async function handler(req, res) {
   // Honeypot: campo invisível que só bots preenchem. Se vier preenchido, finge sucesso.
   if (body.website) {
     return res.status(200).json({ ok: true });
+  }
+
+  // Validação anti-bot ANTES de tocar em Supabase/Resend.
+  // Isso bloqueia scripts automatizados (curl, bots) que não conseguem
+  // resolver o desafio do Turnstile no navegador real.
+  const turnstileOk = await validarTurnstile(body.turnstileToken, ip);
+  if (!turnstileOk) {
+    return res.status(403).json({ erro: 'Verificação de segurança falhou' });
   }
 
   const nome = sanitizar(body.nome, 200);
