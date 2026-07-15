@@ -1,294 +1,561 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pentest ético autorizado e auditoria de segurança ofensiva. Testes de invasão com contrato, escopo definido e relatório profissional para LGPD, ISO 27001 e PCI-DSS.">
-    <meta property="og:title" content="STARKER Security - Pentest Ético & Segurança Ofensiva">
-    <meta property="og:description" content="Testes de invasão autorizados, com contrato e escopo definido. Metodologia própria de mapeamento de superfície de ataque.">
-    <meta property="og:type" content="website">
-    <link rel="canonical" href="https://starkersecurity.com.br/">
-    <title>STARKER Security - Pentest Ético & Segurança Ofensiva</title>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "STARKER Security",
-      "description": "Pentest ético autorizado e auditoria de segurança ofensiva, com relatórios para LGPD, ISO 27001 e PCI-DSS.",
-      "areaServed": "BR",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Itacoatiara",
-        "addressRegion": "AM",
-        "addressCountry": "BR"
-      }
-    }
-    </script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
-        header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 28px; font-weight: bold; color: #00ff88; }
-        nav a { color: white; text-decoration: none; margin-left: 30px; transition: color 0.3s; }
-        nav a:hover { color: #00ff88; }
-        .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 100px 20px; text-align: center; }
-        .hero h1 { font-size: 48px; margin-bottom: 20px; color: #00ff88; }
-        .hero p { font-size: 20px; margin-bottom: 30px; color: #ccc; }
-        .cta-button { display: inline-block; background: #00ff88; color: #1a1a2e; padding: 15px 40px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 18px; transition: all 0.3s; }
-        .cta-button:hover { background: #00dd66; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,255,136,0.3); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 80px 20px; }
-        section h2 { font-size: 36px; margin-bottom: 50px; text-align: center; color: #1a1a2e; }
-        .servicos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .servico-card { background: white; border: 2px solid #eee; border-radius: 10px; padding: 30px; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .servico-card:hover { border-color: #00ff88; box-shadow: 0 10px 30px rgba(0,255,136,0.2); transform: translateY(-5px); }
-        .servico-card h3 { color: #1a1a2e; margin-bottom: 15px; font-size: 24px; }
-        .servico-card p { color: #666; margin-bottom: 20px; }
-        .preco { font-size: 24px; font-weight: bold; color: #00ff88; margin: 20px 0; }
-        .metodologia { background: #f5f5f5; }
-        .metodo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
-        .metodo-item { background: white; padding: 25px; border-left: 5px solid #00ff88; border-radius: 5px; }
-        .metodo-item h3 { color: #1a1a2e; margin-bottom: 10px; }
-        .portfolio { background: white; }
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-        .portfolio-item { background: #f9f9f9; padding: 25px; border-radius: 10px; border: 1px solid #eee; }
-        .portfolio-item h3 { color: #1a1a2e; margin-bottom: 10px; }
-        .portfolio-item .tag { display: inline-block; background: #e0f2f1; color: #00695c; padding: 5px 12px; border-radius: 20px; font-size: 12px; margin-top: 10px; margin-right: 5px; }
-        .pricing { background: #f5f5f5; }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .pricing-card { background: white; padding: 40px; border-radius: 10px; border: 2px solid #eee; text-align: center; }
-        .pricing-card.featured { border-color: #00ff88; box-shadow: 0 10px 30px rgba(0,255,136,0.2); }
-        .pricing-card h3 { color: #1a1a2e; margin-bottom: 15px; font-size: 28px; }
-        .pricing-card .valor { font-size: 36px; color: #00ff88; font-weight: bold; margin: 20px 0; }
-        .pricing-card ul { text-align: left; color: #666; margin: 30px 0; }
-        .pricing-card li { padding: 8px 0; border-bottom: 1px solid #eee; }
-        .jv { background: white; }
-        .jv-content { background: #f9f9f9; padding: 40px; border-radius: 10px; margin-top: 30px; border-left: 5px solid #00ff88; }
-        .jv-content h3 { color: #1a1a2e; margin-bottom: 15px; font-size: 24px; }
-        .contato { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; }
-        .contato h2 { color: #00ff88; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 16px; }
-        .form-group textarea { resize: vertical; min-height: 120px; }
-        .form-group button { background: #00ff88; color: #1a1a2e; padding: 12px 30px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
-        .form-group button:hover:not(:disabled) { background: #00dd66; transform: translateY(-2px); }
-        .form-group button:disabled { background: #888; }
-        .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 40px; }
-        .contact-item { text-align: center; }
-        .contact-item h3 { color: #00ff88; margin-bottom: 10px; }
-        footer { background: #0f0f1e; color: white; text-align: center; padding: 20px; margin-top: 50px; }
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 32px; }
-            .header-content { flex-direction: column; gap: 15px; }
-            nav a { margin-left: 12px; margin-right: 12px; display: inline-block; padding: 6px 0; }
-            section { padding: 40px 20px; }
-            .cta-button { width: 100%; padding: 16px 20px; min-height: 44px; }
-            .form-group input, .form-group textarea, .form-group select { font-size: 16px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pentest ético autorizado e auditoria de segurança ofensiva. Testes de invasão com contrato, escopo definido e relatório profissional para LGPD, ISO 27001 e PCI-DSS.">
+<meta property="og:title" content="STARKER Security - Pentest Ético & Segurança Ofensiva">
+<meta property="og:description" content="Testes de invasão autorizados, com contrato e escopo definido. Metodologia própria de mapeamento de superfície de ataque.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://starkersecurity.com.br/">
+<title>STARKER Security - Pentest Ético & Segurança Ofensiva</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "STARKER Security",
+  "description": "Pentest ético autorizado e auditoria de segurança ofensiva, com relatórios para LGPD, ISO 27001 e PCI-DSS.",
+  "areaServed": "BR",
+  "address": { "@type": "PostalAddress", "addressLocality": "Itacoatiara", "addressRegion": "AM", "addressCountry": "BR" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B1120;
+    --panel: #121B2E;
+    --panel-2: #182238;
+    --line: #24304A;
+    --text: #E4E9F2;
+    --text-dim: #93A1BC;
+    --accent: #FF8A3D;
+    --accent-dim: #7A4A26;
+    --safe: #2DD4BF;
+    --radius: 10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none !important; transition:none !important;} }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter',sans-serif; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif; letter-spacing:-0.01em;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+  .container{max-width:1080px; margin:0 auto; padding:0 20px;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  /* Header */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(11,17,32,0.88); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-content{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 20px; max-width:1080px; margin:0 auto;
+  }
+  .logo{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; display:flex; align-items:center; gap:8px;}
+  .logo-dot{width:9px; height:9px; border-radius:50%; background:var(--safe); box-shadow:0 0 8px var(--safe); flex-shrink:0;}
+  nav{display:none; gap:28px; font-size:14px; color:var(--text-dim);}
+  nav a:hover{color:var(--accent);}
+  .nav-cta{
+    font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500;
+    background:var(--accent); color:#1a1006; padding:9px 16px; border-radius:6px;
+    text-decoration:none; white-space:nowrap;
+  }
+  @media(min-width:840px){ nav{display:flex;} }
+
+  /* Hero */
+  .hero{padding:56px 0 40px; position:relative; overflow:hidden;}
+  .hero::before{
+    content:''; position:absolute; inset:0;
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse 70% 60% at 50% 0%, black 20%, transparent 75%);
+    opacity:0.3; pointer-events:none;
+  }
+  .hero-graph{
+    position:absolute; top:-40px; left:50%; transform:translateX(-50%);
+    width:min(900px,150vw); height:auto; opacity:0.5; pointer-events:none;
+  }
+  .hero-graph circle.node{fill:var(--panel-2); stroke:var(--line); stroke-width:1.5;}
+  .hero-graph circle.node.hit{stroke:var(--accent); fill:#1d1810;}
+  .hero-graph line{stroke:var(--line); stroke-width:1;}
+  .hero-graph line.path{stroke:var(--accent); stroke-width:1.4; stroke-dasharray:4 4; opacity:0.8;}
+  .terminal{
+    position:relative; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 18px; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--text-dim);
+    max-width:520px; margin:0 auto 32px; overflow:hidden;
+  }
+  .terminal-bar{display:flex; gap:6px; margin-bottom:12px;}
+  .terminal-bar span{width:9px; height:9px; border-radius:50%; background:var(--line);}
+  .term-line{white-space:pre; overflow:hidden; border-right:2px solid var(--accent); width:0; animation:type 0.9s steps(28,end) forwards, blink 0.8s step-end infinite;}
+  .term-line.l2{animation-delay:1s, 1s;}
+  .term-line.l3{animation-delay:2s, 2s; color:var(--safe);}
+  @keyframes type{ to{ width:100%; border-color:transparent; } }
+  @keyframes blink{ 50%{ border-color:transparent; } }
+
+  .hero h1{font-size:clamp(30px,7vw,52px); text-align:center; line-height:1.12; margin-bottom:18px;}
+  .hero h1 em{font-style:normal; color:var(--accent);}
+  .hero p{text-align:center; color:var(--text-dim); font-size:16px; max-width:560px; margin:0 auto 28px;}
+  .hero-ctas{display:flex; flex-direction:column; gap:12px; align-items:center;}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:15px 28px; border-radius:8px; font-weight:600; font-size:15px;
+    text-decoration:none; min-height:48px; width:100%; max-width:340px;
+    transition:transform 0.15s ease;
+  }
+  .btn:active{transform:scale(0.98);}
+  .btn-primary{background:var(--accent); color:#1a1006;}
+  .btn-ghost{background:transparent; color:var(--text); border:1px solid var(--line);}
+  .hero-note{
+    display:flex; align-items:center; gap:8px; justify-content:center;
+    margin-top:22px; font-size:13px; color:var(--text-dim); text-align:center;
+  }
+  .hero-note .dot{width:6px; height:6px; border-radius:50%; background:var(--safe); flex-shrink:0;}
+
+  section{padding:56px 0;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent);
+    display:block; margin-bottom:10px;
+  }
+  .eyebrow::before{content:'$ '; opacity:0.6;}
+  h2{font-size:clamp(24px,5vw,34px); margin-bottom:8px;}
+  .section-sub{color:var(--text-dim); font-size:15px; margin-bottom:32px; max-width:520px;}
+
+  /* Como funciona - real sequence, numbering earned */
+  .steps{display:grid; gap:14px;}
+  .step{
+    display:flex; gap:16px; background:var(--panel); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px;
+  }
+  .step-n{font-family:'JetBrains Mono',monospace; color:var(--accent); font-weight:600; font-size:14px; flex-shrink:0; width:24px;}
+  .step h3{font-size:16px; margin-bottom:4px;}
+  .step p{color:var(--text-dim); font-size:14px;}
+
+  /* Servicos */
+  .cards{display:grid; gap:14px;}
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; transition:border-color 0.2s, transform 0.2s;
+  }
+  .card:hover{border-color:var(--accent-dim); transform:translateY(-3px);}
+  .card-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:10px;}
+  .card h3{font-size:17px;}
+  .card p{color:var(--text-dim); font-size:14px; margin-bottom:6px;}
+  .price{font-family:'JetBrains Mono',monospace; color:var(--safe); font-size:14px; font-weight:500; white-space:nowrap;}
+
+  /* Metodologia - real pipeline, monospace log style */
+  .pipeline{position:relative;}
+  .pipeline::before{
+    content:''; position:absolute; left:29px; top:8px; bottom:8px; width:1px;
+    background:var(--line); z-index:0;
+  }
+  .pipe-row{
+    position:relative; display:flex; gap:16px; padding:16px 0 16px 0;
+    font-size:14px; z-index:1;
+  }
+  .pipe-num{
+    flex-shrink:0; width:28px; height:28px; border-radius:50%;
+    background:var(--panel); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent);
+    margin-top:2px;
+  }
+  .pipe-body strong{display:block; margin-bottom:2px; font-size:15px;}
+  .pipe-body .pipe-tag{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); background:var(--panel-2); padding:2px 8px; border-radius:4px; display:inline-block; margin-bottom:6px;}
+  .pipe-body span{color:var(--text-dim); font-size:13.5px; display:block;}
+
+  /* Portfolio */
+  .portfolio-grid{display:grid; gap:14px;}
+  .p-item{background:var(--panel-2); border:1px solid var(--line); border-radius:var(--radius); padding:20px;}
+  .p-item h3{font-size:16px; margin-bottom:8px;}
+  .p-item p{color:var(--text-dim); font-size:14px; margin-bottom:14px;}
+  .tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{font-family:'JetBrains Mono',monospace; font-size:11px; background:rgba(45,212,191,0.1); color:var(--safe); padding:4px 10px; border-radius:20px;}
+
+  /* Pricing */
+  .pricing-grid{display:grid; gap:16px;}
+  .pcard{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:28px;}
+  .pcard.featured{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent), 0 20px 40px -20px rgba(255,138,61,0.25);}
+  .pcard-badge{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); margin-bottom:10px; display:block;}
+  .pcard h3{font-size:20px; margin-bottom:6px;}
+  .pcard > p{color:var(--text-dim); font-size:14px; margin-bottom:16px;}
+  .pcard .valor{font-family:'JetBrains Mono',monospace; font-size:30px; font-weight:600; color:var(--text); margin-bottom:18px;}
+  .pcard ul{list-style:none; margin-bottom:22px;}
+  .pcard li{padding:8px 0; border-bottom:1px solid var(--line); font-size:14px; color:var(--text-dim); display:flex; gap:8px;}
+  .pcard li:last-child{border-bottom:none;}
+  .pcard li.no{opacity:0.5;}
+  .pcard button.btn{width:100%; max-width:none; background:var(--panel-2); color:var(--text); border:1px solid var(--line); cursor:pointer; font-family:inherit;}
+  .pcard.featured button.btn{background:var(--accent); color:#1a1006; border:none;}
+
+  /* JV */
+  .jv-box{background:var(--panel); border-left:3px solid var(--accent); border-radius:var(--radius); padding:24px; margin-bottom:14px;}
+  .jv-box h3{font-size:17px; margin-bottom:12px;}
+  .jv-box p{color:var(--text-dim); font-size:14px;}
+  .jv-box strong{color:var(--text);}
+
+  /* Contato */
+  .contato{background:var(--panel-2); border-top:1px solid var(--line);}
+  .form-group{margin-bottom:18px;}
+  .form-group label{display:block; margin-bottom:7px; font-size:14px; font-weight:500;}
+  .form-group input, .form-group select, .form-group textarea{
+    width:100%; padding:13px 14px; background:var(--bg); border:1px solid var(--line);
+    border-radius:8px; color:var(--text); font-family:inherit; font-size:16px;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{border-color:var(--accent); outline:none;}
+  .form-group textarea{resize:vertical; min-height:110px;}
+  .check-row{display:flex; align-items:flex-start; gap:10px;}
+  .check-row input{width:auto; margin-top:3px;}
+  .check-row label{font-size:13.5px; color:var(--text-dim); font-weight:400;}
+  #submitBtn{background:var(--accent); color:#1a1006; border:none; cursor:pointer; font-family:inherit;}
+  #submitBtn:disabled{background:var(--line); color:var(--text-dim);}
+  .form-note{font-size:12.5px; color:var(--text-dim); text-align:center; margin-top:14px;}
+
+  .contact-grid{display:grid; gap:14px; margin-top:36px;}
+  .contact-item{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; text-align:center;}
+  .contact-item h3{font-size:13px; color:var(--text-dim); margin-bottom:6px; font-weight:500;}
+  .contact-item a{color:var(--accent); font-weight:500; font-size:15px;}
+
+  footer{text-align:center; padding:28px 20px; color:var(--text-dim); font-size:12.5px; border-top:1px solid var(--line);}
+
+  .wa-fab{
+    position:fixed; bottom:18px; right:18px; width:56px; height:56px; border-radius:50%;
+    background:#1FAE58; color:white; display:flex; align-items:center; justify-content:center;
+    font-size:26px; box-shadow:0 6px 20px rgba(0,0,0,0.4); z-index:999; text-decoration:none;
+  }
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity 0.55s ease, transform 0.55s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  .mobile-cta-bar{
+    display:flex; position:fixed; left:0; right:0; bottom:0; z-index:998;
+    background:rgba(11,17,32,0.92); backdrop-filter:blur(10px);
+    border-top:1px solid var(--line); padding:10px 14px;
+    padding-bottom:calc(10px + env(safe-area-inset-bottom));
+    transform:translateY(100%); transition:transform 0.3s ease;
+  }
+  .mobile-cta-bar.show{transform:translateY(0);}
+  .mobile-cta-bar a{
+    flex:1; text-align:center; background:var(--accent); color:#1a1006;
+    padding:13px; border-radius:8px; font-weight:600; font-size:14.5px; text-decoration:none;
+  }
+  @media(min-width:840px){ .mobile-cta-bar{display:none;} }
+  @media(max-width:839px){ .wa-fab{bottom:78px;} }
+
+  @media(min-width:640px){
+    .steps{grid-template-columns:1fr 1fr;}
+    .cards{grid-template-columns:1fr 1fr;}
+    .portfolio-grid{grid-template-columns:1fr 1fr 1fr;}
+    .hero-ctas{flex-direction:row;}
+  }
+  @media(min-width:900px){
+    .pricing-grid{grid-template-columns:1fr 1fr 1fr;}
+  }
+</style>
 </head>
+<noscript><style>.reveal{opacity:1 !important; transform:none !important;}</style></noscript>
 <body>
-    <header>
-        <div class="header-content">
-            <div class="logo">🛡️ STARKER Security</div>
-            <nav>
-                <a href="#servicos">Serviços</a>
-                <a href="#como-funciona">Como Funciona</a>
-                <a href="#metodologia">Metodologia</a>
-                <a href="#pricing">Preços</a>
-                <a href="#jv">Parcerias</a>
-                <a href="#contato">Contato</a>
-            </nav>
-        </div>
-    </header>
-    <section class="hero">
-        <h1>Pentest Ético para seu Negócio</h1>
-        <p>Testes de invasão <strong>autorizados</strong>, com contrato e escopo definido | Metodologia própria de mapeamento de superfície de ataque | Relatório pronto para LGPD, ISO 27001 e PCI-DSS</p>
-        <a href="#contato" class="cta-button">Solicitar Auditoria</a>
-        <p style="margin-top: 20px; font-size: 14px; color: #999;">🔒 Todo serviço é iniciado somente após termo de autorização assinado pelo responsável legal pela rede/ativo testado.</p>
-    </section>
-    <section id="como-funciona" style="background: #f5f5f5;">
-        <div class="container">
-            <h2>Como Funciona</h2>
-            <p style="text-align: center; color: #666; font-size: 18px; margin-bottom: 40px;">Todo trabalho segue um processo formal — sem exceções.</p>
-            <div class="metodo-grid">
-                <div class="metodo-item"><h3>1. Termo de Autorização</h3><p>Você assina um documento confirmando que é o responsável legal pela rede/ativo e autoriza os testes</p></div>
-                <div class="metodo-item"><h3>2. Escopo Definido</h3><p>Acordamos por escrito o que será testado, janelas de horário e limites — nada fora do combinado</p></div>
-                <div class="metodo-item"><h3>3. Execução</h3><p>Testes conduzidos com sigilo e sem interromper sua operação</p></div>
-                <div class="metodo-item"><h3>4. Relatório com Sigilo</h3><p>Documento técnico confidencial, com NDA se necessário, e nenhum dado retido após entrega</p></div>
-            </div>
-        </div>
-    </section>
-    <section id="servicos">
-        <div class="container">
-            <h2>Serviços</h2>
-            <div class="servicos">
-                <div class="servico-card"><h3>🔍 Reconnaissance</h3><p>Mapeamento completo de superfície de ataque usando Nmap + Grafo correlacionador</p><p>Entrega: Relatório de hosts, portas, serviços e vulns potenciais</p><div class="preco">R$ 200-500</div></div>
-                <div class="servico-card"><h3>🎯 Penetração Básica</h3><p>Teste de credenciais padrão, RTSP, SMB, WiFi. Sem exploração avançada</p><p>Ideal para: Comércios, lanchonetes, pequenos escritórios</p><div class="preco">R$ 500-1.500</div></div>
-                <div class="servico-card"><h3>⚔️ Penetração Completa</h3><p>Acesso à rede, escalação de privilégio, movimentação lateral, exfiltração</p><p>Relatório final com roadmap de remediação</p><div class="preco">R$ 1.500-3.000</div></div>
-                <div class="servico-card"><h3>🏢 Auditoria de Segurança</h3><p>Análise completa de rede, servidores, aplicações. Foco em conformidade</p><p>Escopo customizado conforme tamanho da rede</p><div class="preco">Sob consulta</div></div>
-                <div class="servico-card"><h3>📊 Relatório Formal</h3><p>Documento PDF profissional com screenshots, análise técnica, recomendações</p><p>Pronto para apresentar a investidores, compliance, LGPD</p><div class="preco">Incluído</div></div>
-                <div class="servico-card"><h3>🤝 Suporte Pós-Auditoria</h3><p>Consultoria de 30 dias: validação de correções, testes de remediação</p><p>Acompanhamento de implementação das recomendações</p><div class="preco">+R$ 300/mês</div></div>
-            </div>
-        </div>
-    </section>
-    <section id="metodologia" class="metodologia">
-        <div class="container">
-            <h2>Metodologia</h2>
-            <p style="text-align: center; color: #666; font-size: 18px; margin-bottom: 40px;">Não usamos scanners genéricos. Nossa abordagem combina recon com análise gráfica de superfície de ataque.</p>
-            <div class="metodo-grid">
-                <div class="metodo-item"><h3>1. Nmap + Grafo</h3><p>Scan de rede completo gerando grafo correlacionador que mapeia relações entre ativos</p></div>
-                <div class="metodo-item"><h3>2. Path Analysis</h3><p>Identificamos o caminho mais fácil de exploração (easiest-path) usando algoritmo de custo</p></div>
-                <div class="metodo-item"><h3>3. Exploit Seletivo</h3><p>Testes focados nos caminhos identificados. Sem noise, com metodologia precisa</p></div>
-                <div class="metodo-item"><h3>4. STARKER Audit</h3><p>Framework próprio com módulos: XSS, SQLi, proxy, detecção de frameworks</p></div>
-                <div class="metodo-item"><h3>5. Relatório Técnico</h3><p>Documentação profissional com screenshots, CVSS score, recomendações prioritárias</p></div>
-                <div class="metodo-item"><h3>6. Validação Final</h3><p>Confirmação de cada achado. Sem false positives. Pronto para LGPD/compliance</p></div>
-            </div>
-        </div>
-    </section>
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <h2>Portfólio (Em Construção)</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 40px;">Projetos documentados (dados do cliente ofuscados)</p>
-            <div class="portfolio-grid">
-                <div class="portfolio-item"><h3>Auditoria Câmera IP</h3><p>Identificação de vulnerabilidade RTSP em firmware de câmeras AltoBeam. Credencial padrão + protocolo quebrado (405).</p><span class="tag">RTSP</span><span class="tag">Firmware</span><span class="tag">Credential Test</span></div>
-                <div class="portfolio-item"><h3>Mapeamento de Rede Doméstica</h3><p>Recon de rede 192.168.0.0/24 identificando 11 hosts. Correlação de fingerprints entre câmeras irmãs.</p><span class="tag">Nmap</span><span class="tag">Grafo</span><span class="tag">Fingerprint</span></div>
-                <div class="portfolio-item"><h3>Framework STARKER v8</h3><p>Ferramenta de scanning customizada com módulos XSS, SQLi, proxy detection, framework identification.</p><span class="tag">Python</span><span class="tag">Custom Scanner</span><span class="tag">Open Source</span></div>
-            </div>
-        </div>
-    </section>
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <h2>Preços & Pacotes</h2>
-            <div class="pricing-grid">
-                <div class="pricing-card"><h3>Básico</h3><p>Ideal para testar antes de contratar</p><div class="valor">R$ 200</div><ul><li>✓ Nmap scan completo</li><li>✓ Relatório de portas abertas</li><li>✓ Serviços identificados</li><li>✓ Riscos óbvios apontados</li><li>✗ Testes de exploração</li></ul><button class="cta-button" data-servico="Básico">Contratar</button></div>
-                <div class="pricing-card featured"><h3>Intermediário</h3><p>Mais popular • Teste real de vulnerabilidades</p><div class="valor">R$ 800</div><ul><li>✓ Tudo do Básico</li><li>✓ Teste de credenciais padrão</li><li>✓ Vulnerability scan</li><li>✓ RTSP/SMB/WiFi test</li><li>✓ Relatório PDF profissional</li></ul><button class="cta-button" data-servico="Intermediário">Contratar</button></div>
-                <div class="pricing-card"><h3>Avançado</h3><p>Penetração completa com exploração</p><div class="valor">R$ 2.000+</div><ul><li>✓ Tudo do Intermediário</li><li>✓ Acesso à rede (se aplicável)</li><li>✓ Escalação de privilégio</li><li>✓ Movimentação lateral</li><li>✓ Suporte pós-auditoria 30 dias</li></ul><button class="cta-button" data-servico="Avançado">Contratar</button></div>
-            </div>
-        </div>
-    </section>
-    <section id="jv" class="jv">
-        <div class="container">
-            <h2>Parcerias & Joint Venture</h2>
-            <div class="jv-content">
-                <h3>Procuramos</h3>
-                <p><strong>Resellers / Agências de TI:</strong> Revenda de serviços de pentesting com margem de 30-40%. Suporte técnico e relatórios fornecidos.<br><br><strong>Consultores de Compliance:</strong> Parceria em auditorias que exigem segurança ofensiva (LGPD, ISO 27001, PCI-DSS).<br><br><strong>Empresas de Segurança:</strong> White-label de relatórios + nossa metodologia em seus clientes.<br><br><strong>Desenvolvedoras:</strong> Teste de segurança integrado no pipeline de entrega de aplicações.<br><br><strong>Bug Bounty / Offensive Security:</strong> Formação de equipe colaborativa em caçadas de vulnerabilidades.</p>
-            </div>
-            <div class="jv-content" style="margin-top: 20px;">
-                <h3>O Que Oferecemos</h3>
-                <ul style="color: #666; margin-left: 20px;">
-                    <li>✓ Relatórios técnicos personalizáveis com logo do parceiro</li>
-                    <li>✓ Suporte contínuo via WhatsApp/Email</li>
-                    <li>✓ Treinamento em ferramenta STARKER</li>
-                    <li>✓ Metodologia documentada e pronta para escalar</li>
-                    <li>✓ Garantia de qualidade: sem false positives</li>
-                </ul>
-            </div>
-            <p style="text-align: center; margin-top: 30px; color: #666;">Interessado em parceria? <strong><a href="#contato" style="color: #00ff88;">Entre em contato conosco</a></strong></p>
-        </div>
-    </section>
-    <section id="contato" class="contato">
-        <div class="container">
-            <h2>Solicitar Auditoria</h2>
-            <form id="contactForm" style="max-width: 600px; margin: 0 auto;">
-                <div class="form-group"><label for="nome">Nome</label><input type="text" id="nome" name="nome" required></div>
-                <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
-                <div class="form-group"><label for="whatsapp">WhatsApp</label><input type="tel" id="whatsapp" name="whatsapp" placeholder="(XX) 9XXXX-XXXX"></div>
-                <div class="form-group"><label for="empresa">Empresa</label><input type="text" id="empresa" name="empresa"></div>
-                <div class="form-group">
-                    <label for="servico">Serviço Interessado</label>
-                    <select id="servico" name="servico" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;">
-                        <option value="">Selecione...</option>
-                        <option value="Básico">Reconnaissance Básico</option>
-                        <option value="Intermediário">Penetração Intermediária</option>
-                        <option value="Avançado">Penetração Avançada</option>
-                        <option value="Customizado">Escopo Customizado</option>
-                        <option value="JV">Parceria / JV</option>
-                    </select>
-                </div>
-                <div class="form-group"><label for="mensagem">Detalhes da Solicitação</label><textarea id="mensagem" name="mensagem" placeholder="Descreva sua rede, tipo de negócio, principais ativos a auditar..."></textarea></div>
-                <div class="form-group" style="display: flex; align-items: flex-start; gap: 10px;">
-                    <input type="checkbox" id="autorizacao" name="autorizacao" required style="width: auto; margin-top: 5px;">
-                    <label for="autorizacao" style="font-weight: normal; margin-bottom: 0;">Confirmo que sou proprietário(a) ou responsável legal autorizado pela rede/ativo a ser testado, ou que possuo autorização por escrito do responsável.</label>
-                </div>
 
-                <!-- Honeypot anti-bot: campo invisível para humanos, bots costumam preencher -->
-                <div style="position: absolute; left: -9999px;" aria-hidden="true">
-                    <label for="website">Não preencha este campo</label>
-                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <button type="submit" id="submitBtn">Enviar Solicitação</button>
-                </div>
+<header>
+  <div class="header-content">
+    <div class="logo"><span class="logo-dot"></span>STARKER<span style="color:var(--text-dim); font-weight:500;">/security</span></div>
+    <nav>
+      <a href="#servicos">Serviços</a>
+      <a href="#metodologia">Metodologia</a>
+      <a href="#pricing">Preços</a>
+      <a href="#jv">Parcerias</a>
+    </nav>
+    <a href="#contato" class="nav-cta">Solicitar auditoria</a>
+  </div>
+</header>
 
-                <p style="font-size: 13px; color: #ccc; text-align: center;">🔒 Seus dados são usados apenas para responder sua solicitação e não são compartilhados com terceiros, em conformidade com a LGPD (Lei nº 13.709/2018).</p>
-            </form>
-            <div class="contact-info">
-                <div class="contact-item"><h3>📱 WhatsApp</h3><p><a href="https://wa.me/5592981660856" style="color: #00ff88;">92 8166-0856</a></p></div>
-                <div class="contact-item"><h3>📧 Email</h3><p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=tavaresh240@gmail.com" target="_blank" style="color: #00ff88;">tavaresh240@gmail.com</a></p></div>
-                <div class="contact-item"><h3>📍 Localização</h3><p><a href="https://share.google/W1LM7rZKCsB0h4g3g" target="_blank" style="color: #00ff88;">Poranga, Itacoatiara - AM</a></p></div>
-            </div>
-        </div>
-    </section>
-    <a href="https://wa.me/5592981660856?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20pentest." target="_blank" rel="noopener" aria-label="Falar no WhatsApp" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 999;">💬</a>
-    <footer>
-        <p>&copy; 2026 STARKER Security - Pentest Ético. Todos os direitos reservados. | Testes conduzidos mediante autorização formal</p>
-    </footer>
-    <script>
-        // Botões de preço: preenche o select e rola até o formulário (sem inline onclick, CSP-safe)
-        document.querySelectorAll('[data-servico]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                document.getElementById('servico').value = btn.getAttribute('data-servico');
-                document.getElementById('contato').scrollIntoView({ behavior: 'smooth' });
-            });
-        });
+<section class="hero">
+  <svg class="hero-graph" viewBox="0 0 800 260" aria-hidden="true">
+    <line x1="120" y1="60" x2="260" y2="120"></line>
+    <line x1="260" y1="120" x2="420" y2="70"></line>
+    <line x1="260" y1="120" x2="380" y2="190"></line>
+    <line x1="420" y1="70" x2="560" y2="110"></line>
+    <line x1="380" y1="190" x2="560" y2="110" class="path"></line>
+    <line x1="560" y1="110" x2="690" y2="60"></line>
+    <line x1="120" y1="60" x2="180" y2="180"></line>
+    <line x1="180" y1="180" x2="380" y2="190" class="path"></line>
+    <circle class="node" cx="120" cy="60" r="7"></circle>
+    <circle class="node" cx="260" cy="120" r="6"></circle>
+    <circle class="node" cx="180" cy="180" r="6"></circle>
+    <circle class="node" cx="420" cy="70" r="6"></circle>
+    <circle class="node hit" cx="380" cy="190" r="8"></circle>
+    <circle class="node hit" cx="560" cy="110" r="8"></circle>
+    <circle class="node" cx="690" cy="60" r="6"></circle>
+  </svg>
+  <div class="container">
+    <div class="terminal" aria-hidden="true">
+      <div class="terminal-bar"><span></span><span></span><span></span></div>
+      <div class="term-line">$ starker scan --target=rede-cliente</div>
+      <div class="term-line l2">→ 11 hosts · 3 serviços expostos</div>
+      <div class="term-line l3">✓ termo de autorização assinado</div>
+    </div>
+    <h1>Pentest ético para<br>o seu negócio, <em>com contrato</em></h1>
+    <p>Testes de invasão autorizados, escopo definido por escrito e relatório pronto para LGPD, ISO 27001 e PCI-DSS.</p>
+    <div class="hero-ctas">
+      <a href="#contato" class="btn btn-primary">Solicitar auditoria</a>
+      <a href="#metodologia" class="btn btn-ghost">Ver metodologia</a>
+    </div>
+    <div class="hero-note"><span class="dot"></span>Todo serviço começa só após termo de autorização assinado pelo responsável legal pela rede/ativo.</div>
+  </div>
+</section>
 
-        document.getElementById('contactForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const submitBtn = document.getElementById('submitBtn');
-            const formData = {
-                nome: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                whatsapp: document.getElementById('whatsapp').value,
-                empresa: document.getElementById('empresa').value,
-                servico: document.getElementById('servico').value,
-                mensagem: document.getElementById('mensagem').value,
-                autorizacao: document.getElementById('autorizacao').checked,
-                website: document.getElementById('website').value // honeypot
-            };
+<section id="como-funciona" class="reveal">
+  <div class="container">
+    <span class="eyebrow">processo</span>
+    <h2>Como funciona</h2>
+    <p class="section-sub">Todo trabalho segue um processo formal — sem exceções.</p>
+    <div class="steps">
+      <div class="step"><div class="step-n">01</div><div><h3>Termo de autorização</h3><p>Você assina um documento confirmando que é o responsável legal pela rede/ativo e autoriza os testes.</p></div></div>
+      <div class="step"><div class="step-n">02</div><div><h3>Escopo definido</h3><p>Acordamos por escrito o que será testado, janelas de horário e limites — nada fora do combinado.</p></div></div>
+      <div class="step"><div class="step-n">03</div><div><h3>Execução</h3><p>Testes conduzidos com sigilo e sem interromper sua operação.</p></div></div>
+      <div class="step"><div class="step-n">04</div><div><h3>Relatório com sigilo</h3><p>Documento técnico confidencial, com NDA se necessário, sem retenção de dados após a entrega.</p></div></div>
+    </div>
+  </div>
+</section>
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Enviando...';
+<section id="servicos" class="reveal">
+  <div class="container">
+    <span class="eyebrow">serviços</span>
+    <h2>O que auditamos</h2>
+    <p class="section-sub">Do reconhecimento inicial até a exploração completa, com relatório em cada etapa.</p>
+    <div class="cards">
+      <div class="card"><div class="card-head"><h3>🔍 Reconnaissance</h3></div><p>Mapeamento completo de superfície de ataque usando Nmap + grafo correlacionador.</p><p style="font-size:13px;">Entrega: relatório de hosts, portas, serviços e vulns potenciais.</p><div class="price">R$ 200–500</div></div>
+      <div class="card"><div class="card-head"><h3>🎯 Penetração básica</h3></div><p>Teste de credenciais padrão, RTSP, SMB, WiFi. Sem exploração avançada.</p><p style="font-size:13px;">Ideal para: comércios, lanchonetes, pequenos escritórios.</p><div class="price">R$ 500–1.500</div></div>
+      <div class="card"><div class="card-head"><h3>⚔️ Penetração completa</h3></div><p>Acesso à rede, escalação de privilégio, movimentação lateral, exfiltração.</p><p style="font-size:13px;">Relatório final com roadmap de remediação.</p><div class="price">R$ 1.500–3.000</div></div>
+      <div class="card"><div class="card-head"><h3>🏢 Auditoria de segurança</h3></div><p>Análise completa de rede, servidores e aplicações. Foco em conformidade.</p><p style="font-size:13px;">Escopo customizado conforme o tamanho da rede.</p><div class="price">Sob consulta</div></div>
+      <div class="card"><div class="card-head"><h3>📊 Relatório formal</h3></div><p>PDF profissional com screenshots, análise técnica e recomendações.</p><p style="font-size:13px;">Pronto para investidores, compliance e LGPD.</p><div class="price">Incluído</div></div>
+      <div class="card"><div class="card-head"><h3>🤝 Suporte pós-auditoria</h3></div><p>Consultoria de 30 dias: validação de correções, testes de remediação.</p><p style="font-size:13px;">Acompanhamento da implementação das recomendações.</p><div class="price">+R$ 300/mês</div></div>
+    </div>
+  </div>
+</section>
 
-            try {
-                const response = await fetch('/api/contato', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-                const data = await response.json().catch(() => ({}));
-                if (response.ok) {
-                    alert('Contato recebido! Entraremos em contato em breve.');
-                    document.getElementById('contactForm').reset();
-                } else {
-                    throw new Error(data.erro || 'Endpoint indisponível');
-                }
-            } catch (error) {
-                // Fallback: se a API estiver fora do ar, reenvia via WhatsApp para não perder o lead.
-                console.error('Erro ao enviar via API, usando fallback WhatsApp:', error);
-                const texto = encodeURIComponent(
-                    `Nova solicitação via site:\nNome: ${formData.nome}\nEmail: ${formData.email}\nWhatsApp: ${formData.whatsapp}\nEmpresa: ${formData.empresa}\nServiço: ${formData.servico}\nMensagem: ${formData.mensagem}`
-                );
-                window.open(`https://wa.me/5592981660856?text=${texto}`, '_blank');
-                alert('Abrindo o WhatsApp para finalizar sua solicitação.');
-                document.getElementById('contactForm').reset();
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Enviar Solicitação';
-            }
-        });
-    </script>
+<section id="metodologia" class="reveal">
+  <div class="container">
+    <span class="eyebrow">metodologia</span>
+    <h2>Sem scanner genérico</h2>
+    <p class="section-sub">Recon combinado com análise gráfica de superfície de ataque — cada etapa alimenta a próxima.</p>
+    <div class="pipeline">
+      <div class="pipe-row"><div class="pipe-num">1</div><div class="pipe-body"><span class="pipe-tag">nmap+grafo</span><strong>Mapeamento de rede</strong><span>Scan completo gerando grafo correlacionador das relações entre ativos.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">2</div><div class="pipe-body"><span class="pipe-tag">path-cost</span><strong>Path analysis</strong><span>Identificação do caminho mais fácil de exploração (easiest-path) por algoritmo de custo.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">3</div><div class="pipe-body"><span class="pipe-tag">exploit</span><strong>Exploit seletivo</strong><span>Testes focados nos caminhos identificados — sem ruído, com metodologia precisa.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">4</div><div class="pipe-body"><span class="pipe-tag">starker-v8</span><strong>STARKER Audit</strong><span>Framework próprio com módulos de XSS, SQLi, proxy e detecção de frameworks.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">5</div><div class="pipe-body"><span class="pipe-tag">report</span><strong>Relatório técnico</strong><span>Documentação com screenshots, CVSS score e recomendações priorizadas.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">6</div><div class="pipe-body"><span class="pipe-tag">validate</span><strong>Validação final</strong><span>Confirmação de cada achado, sem falsos positivos — pronto para LGPD/compliance.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" class="reveal">
+  <div class="container">
+    <span class="eyebrow">portfólio</span>
+    <h2>Em construção</h2>
+    <p class="section-sub">Projetos documentados (dados do cliente ofuscados).</p>
+    <div class="portfolio-grid">
+      <div class="p-item"><h3>Auditoria câmera IP</h3><p>Vulnerabilidade RTSP em firmware de câmeras AltoBeam. Credencial padrão + protocolo quebrado (405).</p><div class="tags"><span class="tag">RTSP</span><span class="tag">Firmware</span><span class="tag">Credential test</span></div></div>
+      <div class="p-item"><h3>Mapeamento de rede doméstica</h3><p>Recon de rede 192.168.0.0/24 identificando 11 hosts. Correlação de fingerprints entre câmeras irmãs.</p><div class="tags"><span class="tag">Nmap</span><span class="tag">Grafo</span><span class="tag">Fingerprint</span></div></div>
+      <div class="p-item"><h3>Framework STARKER v8</h3><p>Ferramenta de scanning customizada com módulos de XSS, SQLi, proxy e detecção de frameworks.</p><div class="tags"><span class="tag">Python</span><span class="tag">Custom scanner</span><span class="tag">Open source</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="reveal">
+  <div class="container">
+    <span class="eyebrow">preços</span>
+    <h2>Preços & pacotes</h2>
+    <p class="section-sub">Comece pelo básico ou vá direto para exploração completa.</p>
+    <div class="pricing-grid">
+      <div class="pcard">
+        <h3>Básico</h3><p>Ideal para testar antes de contratar</p>
+        <div class="valor">R$ 200</div>
+        <ul>
+          <li>✓ Nmap scan completo</li><li>✓ Relatório de portas abertas</li><li>✓ Serviços identificados</li><li>✓ Riscos óbvios apontados</li><li class="no">✗ Testes de exploração</li>
+        </ul>
+        <button class="btn" data-servico="Básico">Contratar</button>
+      </div>
+      <div class="pcard featured">
+        <span class="pcard-badge">mais popular</span>
+        <h3>Intermediário</h3><p>Teste real de vulnerabilidades</p>
+        <div class="valor">R$ 800</div>
+        <ul>
+          <li>✓ Tudo do Básico</li><li>✓ Teste de credenciais padrão</li><li>✓ Vulnerability scan</li><li>✓ RTSP/SMB/WiFi test</li><li>✓ Relatório PDF profissional</li>
+        </ul>
+        <button class="btn" data-servico="Intermediário">Contratar</button>
+      </div>
+      <div class="pcard">
+        <h3>Avançado</h3><p>Penetração completa com exploração</p>
+        <div class="valor">R$ 2.000+</div>
+        <ul>
+          <li>✓ Tudo do Intermediário</li><li>✓ Acesso à rede (se aplicável)</li><li>✓ Escalação de privilégio</li><li>✓ Movimentação lateral</li><li>✓ Suporte pós-auditoria 30 dias</li>
+        </ul>
+        <button class="btn" data-servico="Avançado">Contratar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="jv" class="reveal">
+  <div class="container">
+    <span class="eyebrow">parcerias</span>
+    <h2>Parcerias & joint venture</h2>
+    <div class="jv-box">
+      <h3>Procuramos</h3>
+      <p><strong>Resellers / agências de TI:</strong> revenda de serviços de pentesting com margem de 30–40%, suporte técnico e relatórios fornecidos.<br><br>
+      <strong>Consultores de compliance:</strong> parceria em auditorias que exigem segurança ofensiva (LGPD, ISO 27001, PCI-DSS).<br><br>
+      <strong>Empresas de segurança:</strong> white-label de relatórios + nossa metodologia em seus clientes.<br><br>
+      <strong>Desenvolvedoras:</strong> segurança integrada no pipeline de entrega de aplicações.<br><br>
+      <strong>Bug bounty / offensive security:</strong> formação de equipe colaborativa em caçadas de vulnerabilidades.</p>
+    </div>
+    <div class="jv-box">
+      <h3>O que oferecemos</h3>
+      <p>✓ Relatórios personalizáveis com logo do parceiro<br>
+      ✓ Suporte contínuo via WhatsApp/Email<br>
+      ✓ Treinamento na ferramenta STARKER<br>
+      ✓ Metodologia documentada, pronta para escalar<br>
+      ✓ Garantia de qualidade: sem falsos positivos</p>
+    </div>
+    <p style="text-align:center; color:var(--text-dim); font-size:14px;">Interessado em parceria? <a href="#contato" style="color:var(--accent); font-weight:600;">Entre em contato</a></p>
+  </div>
+</section>
+
+<section id="contato" class="contato reveal">
+  <div class="container">
+    <span class="eyebrow">contato</span>
+    <h2>Solicitar auditoria</h2>
+    <p class="section-sub">Preencha os dados e retornamos por WhatsApp ou email.</p>
+    <form id="contactForm" style="max-width:560px;">
+      <div class="form-group"><label for="nome">Nome</label><input type="text" id="nome" name="nome" required></div>
+      <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
+      <div class="form-group"><label for="whatsapp">WhatsApp</label><input type="tel" id="whatsapp" name="whatsapp" placeholder="(XX) 9XXXX-XXXX"></div>
+      <div class="form-group"><label for="empresa">Empresa</label><input type="text" id="empresa" name="empresa"></div>
+      <div class="form-group">
+        <label for="servico">Serviço interessado</label>
+        <select id="servico" name="servico">
+          <option value="">Selecione...</option>
+          <option value="Básico">Reconnaissance básico</option>
+          <option value="Intermediário">Penetração intermediária</option>
+          <option value="Avançado">Penetração avançada</option>
+          <option value="Customizado">Escopo customizado</option>
+          <option value="JV">Parceria / JV</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="mensagem">Detalhes da solicitação</label><textarea id="mensagem" name="mensagem" placeholder="Descreva sua rede, tipo de negócio, principais ativos a auditar..."></textarea></div>
+      <div class="form-group check-row">
+        <input type="checkbox" id="autorizacao" name="autorizacao" required>
+        <label for="autorizacao">Confirmo que sou proprietário(a) ou responsável legal autorizado pela rede/ativo a ser testado, ou que possuo autorização por escrito do responsável.</label>
+      </div>
+      <div style="position:absolute; left:-9999px;" aria-hidden="true">
+        <label for="website">Não preencha este campo</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="form-group"><button type="submit" id="submitBtn" class="btn btn-primary" style="max-width:none;">Enviar solicitação</button></div>
+      <p class="form-note">🔒 Seus dados são usados apenas para responder sua solicitação e não são compartilhados com terceiros, em conformidade com a LGPD (Lei nº 13.709/2018).</p>
+    </form>
+    <div class="contact-grid">
+      <div class="contact-item"><h3>WHATSAPP</h3><a href="https://wa.me/5592981660856">92 8166-0856</a></div>
+      <div class="contact-item"><h3>EMAIL</h3><a href="https://mail.google.com/mail/?view=cm&fs=1&to=tavaresh240@gmail.com" target="_blank">tavaresh240@gmail.com</a></div>
+      <div class="contact-item"><h3>LOCALIZAÇÃO</h3><a href="https://share.google/W1LM7rZKCsB0h4g3g" target="_blank">Poranga, Itacoatiara - AM</a></div>
+    </div>
+  </div>
+</section>
+
+<a href="https://wa.me/5592981660856?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20pentest." target="_blank" rel="noopener" aria-label="Falar no WhatsApp" class="wa-fab">💬</a>
+
+<div class="mobile-cta-bar" id="mobileCta">
+  <a href="#contato">Solicitar auditoria</a>
+</div>
+
+<footer>&copy; 2026 STARKER Security — Pentest Ético. Todos os direitos reservados. | Testes conduzidos mediante autorização formal.</footer>
+
+<script>
+  document.querySelectorAll('[data-servico]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.getElementById('servico').value = btn.getAttribute('data-servico');
+      document.getElementById('contato').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Scroll reveal
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // Mobile sticky CTA bar: aparece depois que o hero sai da tela
+  var mobileCta = document.getElementById('mobileCta');
+  var heroEl = document.querySelector('.hero');
+  if (mobileCta && heroEl && 'IntersectionObserver' in window) {
+    var ctaObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        mobileCta.classList.toggle('show', !entry.isIntersecting);
+      });
+    }, { threshold: 0 });
+    ctaObserver.observe(heroEl);
+  }
+
+  document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submitBtn');
+    const formData = {
+      nome: document.getElementById('nome').value,
+      email: document.getElementById('email').value,
+      whatsapp: document.getElementById('whatsapp').value,
+      empresa: document.getElementById('empresa').value,
+      servico: document.getElementById('servico').value,
+      mensagem: document.getElementById('mensagem').value,
+      autorizacao: document.getElementById('autorizacao').checked,
+      website: document.getElementById('website').value
+    };
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    try {
+      const response = await fetch('/api/contato', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json().catch(() => ({}));
+      if (response.ok) {
+        alert('Contato recebido! Entraremos em contato em breve.');
+        document.getElementById('contactForm').reset();
+      } else {
+        throw new Error(data.erro || 'Endpoint indisponível');
+      }
+    } catch (error) {
+      console.error('Erro ao enviar via API, usando fallback WhatsApp:', error);
+      const texto = encodeURIComponent(
+        `Nova solicitação via site:\nNome: ${formData.nome}\nEmail: ${formData.email}\nWhatsApp: ${formData.whatsapp}\nEmpresa: ${formData.empresa}\nServiço: ${formData.servico}\nMensagem: ${formData.mensagem}`
+      );
+      window.open(`https://wa.me/5592981660856?text=${texto}`, '_blank');
+      alert('Abrindo o WhatsApp para finalizar sua solicitação.');
+      document.getElementById('contactForm').reset();
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar solicitação';
+    }
+  });
+</script>
 </body>
 </html>
