@@ -1,16 +1,21 @@
 // api/contato.js
-// Função serverless da Vercel. Recebe o POST do formulário, valida (incluindo
-// Turnstile anti-bot), filtra spam e grava no Supabase usando a service_role key
-// (nunca exposta ao navegador).
+// Função serverless da Vercel. Recebe o POST do formulário, filtra spam e
+// grava no Supabase usando a service_role key (nunca exposta ao navegador).
 //
-// Dependências novas necessárias (já devem estar no package.json):
+// ATENÇÃO: Turnstile removido a pedido. O formulário agora depende só de:
+//   - honeypot (campo "website")
+//   - rate limit real via Upstash (5 tentativas/min por IP)
+//   - validação e sanitização server-side
+// Isso é mais fraco contra bots automatizados do que com Turnstile.
+// Se notar spam na tabela "leads", vale reconsiderar reativar o Turnstile.
+//
+// Dependências necessárias (já devem estar no package.json):
 //   @upstash/redis
 //   @upstash/ratelimit
 //
-// Variáveis de ambiente novas necessárias (Vercel > Settings > Environment Variables):
+// Variáveis de ambiente necessárias (Vercel > Settings > Environment Variables):
 //   UPSTASH_REDIS_REST_URL
 //   UPSTASH_REDIS_REST_TOKEN
-// (crie um banco gratuito em https://console.upstash.com — plano free é suficiente)
 
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
@@ -22,7 +27,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY // NUNCA a anon key aqui — só no servidor
 );
 
-// Rate limit real e persistente entre instâncias serverless (ao contrário de um Map em memória).
+// Rate limit real e persistente entre instâncias serverless.
 // 5 tentativas por IP a cada 60 segundos.
 const ratelimit = new Ratelimit({
   redis: new Redis({
@@ -61,31 +66,6 @@ function validarWhatsapp(str) {
   return /^[\d\s()+-]{8,20}$/.test(str);
 }
 
-// Valida o token do Turnstile direto com a API da Cloudflare
-async function validarTurnstile(token, ip) {
-  if (!token) return false;
-
-  try {
-    const resposta = await fetch(
-      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          secret: process.env.TURNSTILE_SECRET_KEY,
-          response: token,
-          remoteip: ip,
-        }),
-      }
-    );
-    const data = await resposta.json();
-    return data.success === true;
-  } catch (err) {
-    console.error('Erro ao validar Turnstile:', err.message);
-    return false; // em caso de dúvida, bloqueia
-  }
-}
-
 export default async function handler(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
@@ -114,13 +94,9 @@ export default async function handler(req, res) {
       return res.status(413).json({ erro: 'Requisição muito grande' });
     }
 
+    // Honeypot: campo invisível que só bots preenchem. Se vier preenchido, finge sucesso.
     if (body.website) {
       return res.status(200).json({ ok: true });
-    }
-
-    const turnstileOk = await validarTurnstile(body.turnstileToken, ip);
-    if (!turnstileOk) {
-      return res.status(403).json({ erro: 'Verificação de segurança falhou' });
     }
 
     const nome = escaparHtml(sanitizar(body.nome, 200));
