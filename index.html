@@ -7,7 +7,23 @@
     <meta property="og:title" content="STARKER Security - Pentest Ético & Segurança Ofensiva">
     <meta property="og:description" content="Testes de invasão autorizados, com contrato e escopo definido. Metodologia própria de mapeamento de superfície de ataque.">
     <meta property="og:type" content="website">
+    <link rel="canonical" href="https://starkersecurity.com.br/">
     <title>STARKER Security - Pentest Ético & Segurança Ofensiva</title>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "STARKER Security",
+      "description": "Pentest ético autorizado e auditoria de segurança ofensiva, com relatórios para LGPD, ISO 27001 e PCI-DSS.",
+      "areaServed": "BR",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Itacoatiara",
+        "addressRegion": "AM",
+        "addressCountry": "BR"
+      }
+    }
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
@@ -146,9 +162,9 @@
         <div class="container">
             <h2>Preços & Pacotes</h2>
             <div class="pricing-grid">
-                <div class="pricing-card"><h3>Básico</h3><p>Ideal para testar antes de contratar</p><div class="valor">R$ 200</div><ul><li>✓ Nmap scan completo</li><li>✓ Relatório de portas abertas</li><li>✓ Serviços identificados</li><li>✓ Riscos óbvios apontados</li><li>✗ Testes de exploração</li></ul><button class="cta-button" onclick="abrirContato('Básico')">Contratar</button></div>
-                <div class="pricing-card featured"><h3>Intermediário</h3><p>Mais popular • Teste real de vulnerabilidades</p><div class="valor">R$ 800</div><ul><li>✓ Tudo do Básico</li><li>✓ Teste de credenciais padrão</li><li>✓ Vulnerability scan</li><li>✓ RTSP/SMB/WiFi test</li><li>✓ Relatório PDF profissional</li></ul><button class="cta-button" onclick="abrirContato('Intermediário')">Contratar</button></div>
-                <div class="pricing-card"><h3>Avançado</h3><p>Penetração completa com exploração</p><div class="valor">R$ 2.000+</div><ul><li>✓ Tudo do Intermediário</li><li>✓ Acesso à rede (se aplicável)</li><li>✓ Escalação de privilégio</li><li>✓ Movimentação lateral</li><li>✓ Suporte pós-auditoria 30 dias</li></ul><button class="cta-button" onclick="abrirContato('Avançado')">Contratar</button></div>
+                <div class="pricing-card"><h3>Básico</h3><p>Ideal para testar antes de contratar</p><div class="valor">R$ 200</div><ul><li>✓ Nmap scan completo</li><li>✓ Relatório de portas abertas</li><li>✓ Serviços identificados</li><li>✓ Riscos óbvios apontados</li><li>✗ Testes de exploração</li></ul><button class="cta-button" data-servico="Básico">Contratar</button></div>
+                <div class="pricing-card featured"><h3>Intermediário</h3><p>Mais popular • Teste real de vulnerabilidades</p><div class="valor">R$ 800</div><ul><li>✓ Tudo do Básico</li><li>✓ Teste de credenciais padrão</li><li>✓ Vulnerability scan</li><li>✓ RTSP/SMB/WiFi test</li><li>✓ Relatório PDF profissional</li></ul><button class="cta-button" data-servico="Intermediário">Contratar</button></div>
+                <div class="pricing-card"><h3>Avançado</h3><p>Penetração completa com exploração</p><div class="valor">R$ 2.000+</div><ul><li>✓ Tudo do Intermediário</li><li>✓ Acesso à rede (se aplicável)</li><li>✓ Escalação de privilégio</li><li>✓ Movimentação lateral</li><li>✓ Suporte pós-auditoria 30 dias</li></ul><button class="cta-button" data-servico="Avançado">Contratar</button></div>
             </div>
         </div>
     </section>
@@ -196,7 +212,13 @@
                     <input type="checkbox" id="autorizacao" name="autorizacao" required style="width: auto; margin-top: 5px;">
                     <label for="autorizacao" style="font-weight: normal; margin-bottom: 0;">Confirmo que sou proprietário(a) ou responsável legal autorizado pela rede/ativo a ser testado, ou que possuo autorização por escrito do responsável.</label>
                 </div>
-                <div class="form-group"><button type="submit">Enviar Solicitação</button></div>
+                <!-- Honeypot anti-bot: campo invisível para humanos, bots costumam preencher -->
+                <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                    <label for="website">Não preencha este campo</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+                <div class="form-group"><button type="submit" id="submitBtn">Enviar Solicitação</button></div>
+                <p style="font-size: 13px; color: #ccc; text-align: center;">🔒 Seus dados são usados apenas para responder sua solicitação e não são compartilhados com terceiros, em conformidade com a LGPD (Lei nº 13.709/2018).</p>
             </form>
             <div class="contact-info">
                 <div class="contact-item"><h3>📱 WhatsApp</h3><p><a href="https://wa.me/5592981660856" style="color: #00ff88;">92 8166-0856</a></p></div>
@@ -205,12 +227,22 @@
             </div>
         </div>
     </section>
+    <a href="https://wa.me/5592981660856?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20pentest." target="_blank" rel="noopener" aria-label="Falar no WhatsApp" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 999;">💬</a>
     <footer>
         <p>&copy; 2026 STARKER Security - Pentest Ético. Todos os direitos reservados. | Testes conduzidos mediante autorização formal</p>
     </footer>
     <script>
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        // Botões de preço: preenche o select e rola até o formulário (sem inline onclick, CSP-safe)
+        document.querySelectorAll('[data-servico]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.getElementById('servico').value = btn.getAttribute('data-servico');
+                document.getElementById('contato').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
             e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
             const formData = {
                 nome: document.getElementById('nome').value,
                 email: document.getElementById('email').value,
@@ -218,23 +250,28 @@
                 empresa: document.getElementById('empresa').value,
                 servico: document.getElementById('servico').value,
                 mensagem: document.getElementById('mensagem').value,
-                autorizacao: document.getElementById('autorizacao').checked
+                autorizacao: document.getElementById('autorizacao').checked,
+                website: document.getElementById('website').value // honeypot
             };
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+
             try {
                 const response = await fetch('/api/contato', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
+                const data = await response.json().catch(() => ({}));
                 if (response.ok) {
                     alert('Contato recebido! Entraremos em contato em breve.');
                     document.getElementById('contactForm').reset();
                 } else {
-                    throw new Error('Endpoint indisponível');
+                    throw new Error(data.erro || 'Endpoint indisponível');
                 }
             } catch (error) {
-                // Fallback: se o endpoint /api/contato não existir (ex: site estático),
-                // reenvia via WhatsApp para não perder o lead.
+                // Fallback: se a API estiver fora do ar, reenvia via WhatsApp para não perder o lead.
                 console.error('Erro ao enviar via API, usando fallback WhatsApp:', error);
                 const texto = encodeURIComponent(
                     `Nova solicitação via site:\nNome: ${formData.nome}\nEmail: ${formData.email}\nWhatsApp: ${formData.whatsapp}\nEmpresa: ${formData.empresa}\nServiço: ${formData.servico}\nMensagem: ${formData.mensagem}`
@@ -242,12 +279,11 @@
                 window.open(`https://wa.me/5592981660856?text=${texto}`, '_blank');
                 alert('Abrindo o WhatsApp para finalizar sua solicitação.');
                 document.getElementById('contactForm').reset();
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Enviar Solicitação';
             }
         });
-        function abrirContato(servico) {
-            document.getElementById('servico').value = servico;
-            document.getElementById('contato').scrollIntoView({ behavior: 'smooth' });
-        }
     </script>
 </body>
 </html>
