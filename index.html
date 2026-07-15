@@ -9,6 +9,7 @@
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://starkersecurity.com.br/">
     <title>STARKER Security - Pentest Ético & Segurança Ofensiva</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -212,6 +213,9 @@
                     <input type="checkbox" id="autorizacao" name="autorizacao" required style="width: auto; margin-top: 5px;">
                     <label for="autorizacao" style="font-weight: normal; margin-bottom: 0;">Confirmo que sou proprietário(a) ou responsável legal autorizado pela rede/ativo a ser testado, ou que possuo autorização por escrito do responsável.</label>
                 </div>
+                <div class="form-group">
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAAD2oyTAV4bKhD4XI"></div>
+                </div>
                 <!-- Honeypot anti-bot: campo invisível para humanos, bots costumam preencher -->
                 <div style="position: absolute; left: -9999px;" aria-hidden="true">
                     <label for="website">Não preencha este campo</label>
@@ -243,6 +247,7 @@
         document.getElementById('contactForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
+            const turnstileTokenEl = document.querySelector('[name="cf-turnstile-response"]');
             const formData = {
                 nome: document.getElementById('nome').value,
                 email: document.getElementById('email').value,
@@ -251,8 +256,14 @@
                 servico: document.getElementById('servico').value,
                 mensagem: document.getElementById('mensagem').value,
                 autorizacao: document.getElementById('autorizacao').checked,
-                website: document.getElementById('website').value // honeypot
+                website: document.getElementById('website').value, // honeypot
+                turnstileToken: turnstileTokenEl ? turnstileTokenEl.value : ''
             };
+
+            if (!formData.turnstileToken) {
+                alert('Por favor, aguarde a verificação de segurança terminar antes de enviar.');
+                return;
+            }
 
             submitBtn.disabled = true;
             submitBtn.textContent = 'Enviando...';
