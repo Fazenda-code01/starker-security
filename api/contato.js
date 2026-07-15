@@ -1,7 +1,6 @@
 // api/contato.js
 // Função serverless da Vercel. Recebe o POST do formulário, valida, filtra spam
 // e grava no Supabase usando a service_role key (nunca exposta ao navegador).
-
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'crypto';
 
@@ -70,6 +69,7 @@ export default async function handler(req, res) {
   if (!nome || !email || !validarEmail(email)) {
     return res.status(400).json({ erro: 'Nome e email válidos são obrigatórios' });
   }
+
   if (!autorizacao) {
     return res.status(400).json({ erro: 'É necessário confirmar a autorização' });
   }
@@ -87,6 +87,34 @@ export default async function handler(req, res) {
     ip_hash: ipHash,
     user_agent: sanitizar(req.headers['user-agent'] || '', 300),
   });
+
+  // Alerta por email (não bloqueia a resposta ao usuário se falhar)
+  if (process.env.RESEND_API_KEY && process.env.ALERTA_EMAIL_PARA) {
+    try {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'STARKER Security <onboarding@resend.dev>',
+          to: [process.env.ALERTA_EMAIL_PARA],
+          subject: `Novo lead: ${nome} (${servico || 'sem serviço definido'})`,
+          text:
+            `Nome: ${nome}\n` +
+            `Email: ${email}\n` +
+            `WhatsApp: ${whatsapp}\n` +
+            `Empresa: ${empresa}\n` +
+            `Serviço: ${servico}\n` +
+            `Mensagem: ${mensagem}`,
+        }),
+      });
+    } catch (emailError) {
+      console.error('Erro ao enviar alerta de email:', emailError.message);
+      // não retorna erro pro usuário — o lead já foi salvo no banco
+    }
+  }
 
   if (error) {
     console.error('Erro ao gravar lead:', error.message);
