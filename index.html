@@ -9,7 +9,6 @@
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://starkersecurity.com.br/">
     <title>STARKER Security - Pentest Ético & Segurança Ofensiva</title>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -215,25 +214,13 @@
                     <label for="autorizacao" style="font-weight: normal; margin-bottom: 0;">Confirmo que sou proprietário(a) ou responsável legal autorizado pela rede/ativo a ser testado, ou que possuo autorização por escrito do responsável.</label>
                 </div>
 
-                <div class="form-group">
-                    <div id="turnstileWidget" class="cf-turnstile"
-                         data-sitekey="0x4AAAAAAAD2oyTAV4bKhD4XI"
-                         data-callback="onTurnstileSuccess"
-                         data-expired-callback="onTurnstileExpired"
-                         data-error-callback="onTurnstileExpired"></div>
-                </div>
                 <!-- Honeypot anti-bot: campo invisível para humanos, bots costumam preencher -->
                 <div style="position: absolute; left: -9999px;" aria-hidden="true">
                     <label for="website">Não preencha este campo</label>
                     <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <button type="submit" id="submitBtn" disabled style="opacity:0.6; cursor:not-allowed;">
-                        Verificando segurança...
-                    </button>
-                    <p id="turnstileStatus" style="font-size:13px; color:#ccc; margin-top:8px;">
-                        Aguarde alguns segundos, estamos validando a verificação de segurança automaticamente.
-                    </p>
+                    <button type="submit" id="submitBtn">Enviar Solicitação</button>
                 </div>
 
                 <p style="font-size: 13px; color: #ccc; text-align: center;">🔒 Seus dados são usados apenas para responder sua solicitação e não são compartilhados com terceiros, em conformidade com a LGPD (Lei nº 13.709/2018).</p>
@@ -258,34 +245,9 @@
             });
         });
 
-        // Callback chamado automaticamente pelo Turnstile quando a verificação termina com sucesso.
-        // É isso que substitui o alert() feio: o botão vira clicável sozinho, sem o usuário precisar fazer nada.
-        window.onTurnstileSuccess = function () {
-            const submitBtn = document.getElementById('submitBtn');
-            const status = document.getElementById('turnstileStatus');
-            submitBtn.disabled = false;
-            submitBtn.style.opacity = '1';
-            submitBtn.style.cursor = 'pointer';
-            submitBtn.textContent = 'Enviar Solicitação';
-            if (status) status.textContent = '';
-        };
-
-        // Se o token expirar (Turnstile expira após alguns minutos) ou der erro, desabilita de novo
-        // e avisa o usuário de forma discreta, sem alert.
-        window.onTurnstileExpired = function () {
-            const submitBtn = document.getElementById('submitBtn');
-            const status = document.getElementById('turnstileStatus');
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.6';
-            submitBtn.style.cursor = 'not-allowed';
-            submitBtn.textContent = 'Verificando segurança...';
-            if (status) status.textContent = 'A verificação expirou, aguarde a atualização automática.';
-        };
-
         document.getElementById('contactForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
-            const turnstileTokenEl = document.querySelector('[name="cf-turnstile-response"]');
             const formData = {
                 nome: document.getElementById('nome').value,
                 email: document.getElementById('email').value,
@@ -294,17 +256,8 @@
                 servico: document.getElementById('servico').value,
                 mensagem: document.getElementById('mensagem').value,
                 autorizacao: document.getElementById('autorizacao').checked,
-                website: document.getElementById('website').value, // honeypot
-                turnstileToken: turnstileTokenEl ? turnstileTokenEl.value : ''
+                website: document.getElementById('website').value // honeypot
             };
-
-            // Essa checagem agora é só uma rede de segurança (o botão já vem desabilitado
-            // até o token existir), não deve mais aparecer na prática.
-            if (!formData.turnstileToken) {
-                const status = document.getElementById('turnstileStatus');
-                if (status) status.textContent = 'Aguarde a verificação de segurança terminar.';
-                return;
-            }
 
             submitBtn.disabled = true;
             submitBtn.textContent = 'Enviando...';
@@ -319,7 +272,6 @@
                 if (response.ok) {
                     alert('Contato recebido! Entraremos em contato em breve.');
                     document.getElementById('contactForm').reset();
-                    if (window.turnstile) window.turnstile.reset();
                 } else {
                     throw new Error(data.erro || 'Endpoint indisponível');
                 }
@@ -332,7 +284,6 @@
                 window.open(`https://wa.me/5592981660856?text=${texto}`, '_blank');
                 alert('Abrindo o WhatsApp para finalizar sua solicitação.');
                 document.getElementById('contactForm').reset();
-                if (window.turnstile) window.turnstile.reset();
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Enviar Solicitação';
