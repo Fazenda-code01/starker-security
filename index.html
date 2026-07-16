@@ -135,14 +135,14 @@
   }
   .hero-note .dot{width:6px; height:6px; border-radius:50%; background:var(--safe); flex-shrink:0;}
 
-  section{padding:56px 0;}
+  section{padding:72px 0;}
   .eyebrow{
     font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent);
-    display:block; margin-bottom:10px;
+    display:block; margin-bottom:12px; letter-spacing:0.02em;
   }
   .eyebrow::before{content:'$ '; opacity:0.6;}
-  h2{font-size:clamp(24px,5vw,34px); margin-bottom:8px;}
-  .section-sub{color:var(--text-dim); font-size:15px; margin-bottom:32px; max-width:520px;}
+  h2{font-size:clamp(26px,5vw,36px); margin-bottom:10px; line-height:1.2;}
+  .section-sub{color:var(--text-dim); font-size:15.5px; margin-bottom:36px; max-width:520px; line-height:1.6;}
 
   /* Como funciona - real sequence, numbering earned */
   .steps{display:grid; gap:14px;}
@@ -155,12 +155,12 @@
   .step p{color:var(--text-dim); font-size:14px;}
 
   /* Servicos */
-  .cards{display:grid; gap:14px;}
+  .cards{display:grid; gap:16px;}
   .card{
     background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-    padding:22px; transition:border-color 0.2s, transform 0.2s;
+    padding:24px; transition:border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .card:hover{border-color:var(--accent-dim); transform:translateY(-3px);}
+  .card:hover{border-color:var(--accent-dim); transform:translateY(-4px); box-shadow:0 16px 32px -20px rgba(0,0,0,0.5);}
   .card-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:10px;}
   .card h3{font-size:17px;}
   .card p{color:var(--text-dim); font-size:14px; margin-bottom:6px;}
@@ -233,14 +233,12 @@
   #submitBtn:disabled{background:var(--line); color:var(--text-dim);}
   .form-note{font-size:12.5px; color:var(--text-dim); text-align:center; margin-top:14px;}
 
-  .contact-grid{display:grid; gap:14px; margin-top:36px;}
+  .contact-grid{display:grid; gap:14px; margin-top:36px; max-width:280px;}
   .contact-item{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; text-align:center;}
   .contact-item h3{font-size:13px; color:var(--text-dim); margin-bottom:6px; font-weight:500;}
   .contact-item a{color:var(--accent); font-weight:500; font-size:15px;}
 
   footer{text-align:center; padding:28px 20px; color:var(--text-dim); font-size:12.5px; border-top:1px solid var(--line);}
-
-
 
   .reveal{opacity:0; transform:translateY(18px); transition:opacity 0.55s ease, transform 0.55s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
@@ -258,18 +256,18 @@
     padding:13px; border-radius:8px; font-weight:600; font-size:14.5px; text-decoration:none;
   }
   @media(min-width:840px){ .mobile-cta-bar{display:none;} }
-  @media(max-width:839px){ .hacker-mascot{bottom:80px;} }
 
-  @media(min-width:640px){
-    .steps{grid-template-columns:1fr 1fr;}
-    .cards{grid-template-columns:1fr 1fr;}
-    .portfolio-grid{grid-template-columns:1fr 1fr 1fr;}
-    .hero-ctas{flex-direction:row;}
+  /* Lead magnet (checklist gratuito) */
+  .lead-magnet{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:32px 24px; display:flex; flex-direction:column; gap:24px;
   }
-  @media(min-width:900px){
-    .pricing-grid{grid-template-columns:1fr 1fr 1fr;}
-  }
+  .lead-magnet-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;}
+  .lead-magnet-list li{color:var(--text-dim); font-size:14px; padding-left:22px; position:relative;}
+  .lead-magnet-list li::before{content:'✓'; color:var(--safe); position:absolute; left:0;}
+  .lead-magnet-form{display:flex; flex-direction:column; gap:14px;}
 
+  /* Mascote */
   .hacker-mascot{
     position:fixed; right:20px; bottom:20px; z-index:200;
     display:flex; flex-direction:column; align-items:flex-end; gap:6px;
@@ -287,19 +285,26 @@
   .hacker-bubble.show{opacity:1; transform:translateY(0);}
   @keyframes blink{ 0%,92%,100%{opacity:1;} 96%{opacity:0.15;} }
   @keyframes glowPulse{ 0%,100%{filter:drop-shadow(0 0 2px var(--safe));} 50%{filter:drop-shadow(0 0 7px var(--safe));} }
-  @media(max-width:520px){ .hacker-mascot{right:12px; bottom:12px;} .hacker-mascot svg{width:52px; height:52px;} .hacker-bubble{max-width:170px; font-size:11px;} }
-  .lead-magnet{
-    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-    padding:32px 24px; display:flex; flex-direction:column; gap:24px;
+
+  @media(min-width:640px){
+    .steps{grid-template-columns:1fr 1fr;}
+    .cards{grid-template-columns:1fr 1fr;}
+    .portfolio-grid{grid-template-columns:1fr 1fr 1fr;}
+    .hero-ctas{flex-direction:row;}
   }
-  .lead-magnet-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;}
-  .lead-magnet-list li{color:var(--text-dim); font-size:14px; padding-left:22px; position:relative;}
-  .lead-magnet-list li::before{content:'✓'; color:var(--safe); position:absolute; left:0;}
-  .lead-magnet-form{display:flex; flex-direction:column; gap:14px;}
   @media(min-width:840px){
     .lead-magnet{flex-direction:row; align-items:center; padding:40px;}
     .lead-magnet-text{flex:1.2;}
     .lead-magnet-form{flex:1; margin:0;}
+  }
+  @media(min-width:900px){
+    .pricing-grid{grid-template-columns:1fr 1fr 1fr;}
+  }
+  @media(max-width:839px){ .hacker-mascot{bottom:80px;} }
+  @media(max-width:520px){
+    .hacker-mascot{right:12px; bottom:12px;}
+    .hacker-mascot svg{width:52px; height:52px;}
+    .hacker-bubble{max-width:170px; font-size:11px;}
   }
 </style>
 </head>
@@ -534,9 +539,6 @@
     </form>
     <div class="contact-grid">
       <div class="contact-item"><h3>WHATSAPP</h3><a href="https://wa.me/5592981660856">92 8166-0856</a></div>
-      <div class="contact-item"><h3>TELEFONE</h3><a href="tel:+5592981660856">92 8166-0856</a></div>
-      <div class="contact-item"><h3>EMAIL</h3><a href="https://mail.google.com/mail/?view=cm&fs=1&to=tavaresh240@gmail.com" target="_blank">tavaresh240@gmail.com</a></div>
-      <div class="contact-item"><h3>LOCALIZAÇÃO</h3><a href="https://share.google/W1LM7rZKCsB0h4g3g" target="_blank">Poranga, Itacoatiara - AM</a></div>
     </div>
   </div>
 </section>
@@ -625,9 +627,7 @@
       submitBtn.textContent = 'Enviar solicitação';
     }
   });
-</script>
 
-<script>
   document.getElementById('leadEbookForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     var btn = document.getElementById('leadSubmitBtn');
@@ -639,6 +639,15 @@
     btn.disabled = true;
     btn.textContent = 'Enviando...';
 
+    function baixarChecklist(){
+      var link = document.createElement('a');
+      link.href = '/checklist-lgpd.pdf';
+      link.download = 'checklist-seguranca-lgpd-starker.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+
     try {
       const resp = await fetch('/api/lead-ebook', {
         method: 'POST',
@@ -646,46 +655,19 @@
         body: JSON.stringify({ nome, email, website })
       });
       if (!resp.ok) throw new Error('Falha ao registrar lead');
-
       btn.textContent = 'Baixando...';
-      const link = document.createElement('a');
-      link.href = '/checklist-lgpd.pdf';
-      link.download = 'checklist-seguranca-lgpd-starker.pdf';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-
+      baixarChecklist();
       btn.textContent = '✓ Baixado! Confira seu email';
       document.getElementById('leadEbookForm').reset();
     } catch (err) {
       console.error('Erro ao capturar lead do ebook:', err.message);
-      const link = document.createElement('a');
-      link.href = '/checklist-lgpd.pdf';
-      link.download = 'checklist-seguranca-lgpd-starker.pdf';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+      baixarChecklist();
       btn.textContent = '✓ Checklist baixado';
     } finally {
       setTimeout(function(){ btn.disabled = false; btn.textContent = original; }, 3500);
     }
   });
-</script>
 
-<div class="hacker-mascot" id="hackerMascot" aria-hidden="true">
-  <div class="hacker-bubble" id="hackerBubble">$ escaneando superfície...</div>
-  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-    <g class="glow">
-      <path d="M32 6 C18 6 10 16 10 28 L10 46 C10 50 13 53 17 53 L47 53 C51 53 54 50 54 46 L54 28 C54 16 46 6 32 6 Z" fill="#182238" stroke="#24304A" stroke-width="1.5"/>
-      <path d="M12 30 C12 16 20 9 32 9 C44 9 52 16 52 30 L52 24 C52 14 43 8 32 8 C21 8 12 14 12 24 Z" fill="#0B1120"/>
-      <circle class="eye" cx="24" cy="32" r="3.4"/>
-      <circle class="eye" cx="40" cy="32" r="3.4"/>
-      <path d="M23 42 Q32 47 41 42" stroke="#FF8A3D" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <rect x="26" y="4" width="12" height="6" rx="2" fill="#FF8A3D"/>
-    </g>
-  </svg>
-</div>
-<script>
   (function(){
     var frases = [
       '$ escaneando superfície...',
@@ -708,10 +690,24 @@
     setTimeout(function(){ bubble.classList.add('show'); }, 800);
     setInterval(trocaFrase, 6000);
     mascot.addEventListener('click', function(){
-      var section = document.querySelector('#contato, .contact, section:last-of-type');
+      var section = document.querySelector('#contato');
       if(section){ section.scrollIntoView({behavior:'smooth'}); }
     });
   })();
 </script>
+
+<div class="hacker-mascot" id="hackerMascot" aria-hidden="true">
+  <div class="hacker-bubble" id="hackerBubble">$ escaneando superfície...</div>
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <g class="glow">
+      <path d="M32 6 C18 6 10 16 10 28 L10 46 C10 50 13 53 17 53 L47 53 C51 53 54 50 54 46 L54 28 C54 16 46 6 32 6 Z" fill="#182238" stroke="#24304A" stroke-width="1.5"/>
+      <path d="M12 30 C12 16 20 9 32 9 C44 9 52 16 52 30 L52 24 C52 14 43 8 32 8 C21 8 12 14 12 24 Z" fill="#0B1120"/>
+      <circle class="eye" cx="24" cy="32" r="3.4"/>
+      <circle class="eye" cx="40" cy="32" r="3.4"/>
+      <path d="M23 42 Q32 47 41 42" stroke="#FF8A3D" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="26" y="4" width="12" height="6" rx="2" fill="#FF8A3D"/>
+    </g>
+  </svg>
+</div>
 </body>
 </html>
