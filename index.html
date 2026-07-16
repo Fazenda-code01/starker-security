@@ -273,6 +273,26 @@
   @media(min-width:900px){
     .pricing-grid{grid-template-columns:1fr 1fr 1fr;}
   }
+
+  .hacker-mascot{
+    position:fixed; right:20px; bottom:20px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-end; gap:6px;
+  }
+  .hacker-mascot svg{width:64px; height:64px; display:block; cursor:pointer;}
+  .hacker-mascot .eye{fill:var(--safe); animation:blink 4.5s infinite;}
+  .hacker-mascot .glow{animation:glowPulse 2.4s ease-in-out infinite;}
+  .hacker-bubble{
+    max-width:220px; background:var(--panel); border:1px solid var(--line);
+    border-radius:10px 10px 2px 10px; padding:10px 12px;
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim);
+    opacity:0; transform:translateY(6px); pointer-events:none;
+    transition:opacity 0.3s ease, transform 0.3s ease;
+  }
+  .hacker-bubble.show{opacity:1; transform:translateY(0);}
+  @keyframes blink{ 0%,92%,100%{opacity:1;} 96%{opacity:0.15;} }
+  @keyframes glowPulse{ 0%,100%{filter:drop-shadow(0 0 2px var(--safe));} 50%{filter:drop-shadow(0 0 7px var(--safe));} }
+  @media(max-width:520px){ .hacker-mascot{right:12px; bottom:12px;} .hacker-mascot svg{width:52px; height:52px;} .hacker-bubble{max-width:170px; font-size:11px;} }
+  @media (prefers-reduced-motion: reduce){ .hacker-mascot .eye, .hacker-mascot .glow{animation:none;} }
 </style>
 </head>
 <noscript><style>.reveal{opacity:1 !important; transform:none !important;}</style></noscript>
@@ -571,6 +591,48 @@
       submitBtn.textContent = 'Enviar solicitação';
     }
   });
+</script>
+
+<div class="hacker-mascot" id="hackerMascot" aria-hidden="true">
+  <div class="hacker-bubble" id="hackerBubble">$ escaneando superfície...</div>
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <g class="glow">
+      <path d="M32 6 C18 6 10 16 10 28 L10 46 C10 50 13 53 17 53 L47 53 C51 53 54 50 54 46 L54 28 C54 16 46 6 32 6 Z" fill="#182238" stroke="#24304A" stroke-width="1.5"/>
+      <path d="M12 30 C12 16 20 9 32 9 C44 9 52 16 52 30 L52 24 C52 14 43 8 32 8 C21 8 12 14 12 24 Z" fill="#0B1120"/>
+      <circle class="eye" cx="24" cy="32" r="3.4"/>
+      <circle class="eye" cx="40" cy="32" r="3.4"/>
+      <path d="M23 42 Q32 47 41 42" stroke="#FF8A3D" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="26" y="4" width="12" height="6" rx="2" fill="#FF8A3D"/>
+    </g>
+  </svg>
+</div>
+<script>
+  (function(){
+    var frases = [
+      '$ escaneando superfície...',
+      '✓ termo de autorização assinado',
+      'Nenhuma falha passa despercebida.',
+      'Quer um diagnóstico grátis?',
+      '$ nmap -sV rede-cliente'
+    ];
+    var bubble = document.getElementById('hackerBubble');
+    var mascot = document.getElementById('hackerMascot');
+    var i = 0;
+    function trocaFrase(){
+      bubble.classList.remove('show');
+      setTimeout(function(){
+        i = (i + 1) % frases.length;
+        bubble.textContent = frases[i];
+        bubble.classList.add('show');
+      }, 300);
+    }
+    setTimeout(function(){ bubble.classList.add('show'); }, 800);
+    setInterval(trocaFrase, 6000);
+    mascot.addEventListener('click', function(){
+      var section = document.querySelector('#contato, .contact, section:last-of-type');
+      if(section){ section.scrollIntoView({behavior:'smooth'}); }
+    });
+  })();
 </script>
 </body>
 </html>
