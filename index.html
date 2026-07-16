@@ -288,7 +288,19 @@
   @keyframes blink{ 0%,92%,100%{opacity:1;} 96%{opacity:0.15;} }
   @keyframes glowPulse{ 0%,100%{filter:drop-shadow(0 0 2px var(--safe));} 50%{filter:drop-shadow(0 0 7px var(--safe));} }
   @media(max-width:520px){ .hacker-mascot{right:12px; bottom:12px;} .hacker-mascot svg{width:52px; height:52px;} .hacker-bubble{max-width:170px; font-size:11px;} }
-  @media (prefers-reduced-motion: reduce){ .hacker-mascot .eye, .hacker-mascot .glow{animation:none;} }
+  .lead-magnet{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:32px 24px; display:flex; flex-direction:column; gap:24px;
+  }
+  .lead-magnet-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;}
+  .lead-magnet-list li{color:var(--text-dim); font-size:14px; padding-left:22px; position:relative;}
+  .lead-magnet-list li::before{content:'✓'; color:var(--safe); position:absolute; left:0;}
+  .lead-magnet-form{display:flex; flex-direction:column; gap:14px;}
+  @media(min-width:840px){
+    .lead-magnet{flex-direction:row; align-items:center; padding:40px;}
+    .lead-magnet-text{flex:1.2;}
+    .lead-magnet-form{flex:1; margin:0;}
+  }
 </style>
 </head>
 <noscript><style>.reveal{opacity:1 !important; transform:none !important;}</style></noscript>
@@ -352,6 +364,33 @@
       <div class="step"><div class="step-n">02</div><div><h3>Escopo definido</h3><p>Acordamos por escrito o que será testado, janelas de horário e limites — nada fora do combinado.</p></div></div>
       <div class="step"><div class="step-n">03</div><div><h3>Execução</h3><p>Testes conduzidos com sigilo e sem interromper sua operação.</p></div></div>
       <div class="step"><div class="step-n">04</div><div><h3>Relatório com sigilo</h3><p>Documento técnico confidencial, com NDA se necessário, sem retenção de dados após a entrega.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="checklist" class="reveal">
+  <div class="container">
+    <div class="lead-magnet">
+      <div class="lead-magnet-text">
+        <span class="eyebrow">grátis</span>
+        <h2>Checklist de Segurança LGPD</h2>
+        <p class="section-sub" style="margin-bottom:18px;">20 perguntas práticas pra você descobrir, em 5 minutos, se sua empresa está exposta a falhas críticas de segurança e conformidade com a LGPD.</p>
+        <ul class="lead-magnet-list">
+          <li>Mapeamento de dados e controle de acesso</li>
+          <li>Infraestrutura, rede e aplicações</li>
+          <li>Governança e conformidade LGPD</li>
+        </ul>
+      </div>
+      <form id="leadEbookForm" class="lead-magnet-form">
+        <div class="form-group"><label for="leadNome">Nome</label><input type="text" id="leadNome" name="nome" required></div>
+        <div class="form-group"><label for="leadEmail">Email</label><input type="email" id="leadEmail" name="email" required></div>
+        <div style="position:absolute; left:-9999px;" aria-hidden="true">
+          <label for="leadWebsite">Não preencha este campo</label>
+          <input type="text" id="leadWebsite" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" id="leadSubmitBtn" class="btn btn-primary" style="max-width:none;">Baixar checklist grátis</button>
+        <p class="form-note">🔒 Sem spam. Usado só pra te enviar o material, conforme a LGPD.</p>
+      </form>
     </div>
   </div>
 </section>
@@ -584,6 +623,51 @@
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Enviar solicitação';
+    }
+  });
+</script>
+
+<script>
+  document.getElementById('leadEbookForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var btn = document.getElementById('leadSubmitBtn');
+    var original = btn.textContent;
+    var nome = document.getElementById('leadNome').value;
+    var email = document.getElementById('leadEmail').value;
+    var website = document.getElementById('leadWebsite').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      const resp = await fetch('/api/lead-ebook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email, website })
+      });
+      if (!resp.ok) throw new Error('Falha ao registrar lead');
+
+      btn.textContent = 'Baixando...';
+      const link = document.createElement('a');
+      link.href = '/checklist-lgpd.pdf';
+      link.download = 'checklist-seguranca-lgpd-starker.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      btn.textContent = '✓ Baixado! Confira seu email';
+      document.getElementById('leadEbookForm').reset();
+    } catch (err) {
+      console.error('Erro ao capturar lead do ebook:', err.message);
+      const link = document.createElement('a');
+      link.href = '/checklist-lgpd.pdf';
+      link.download = 'checklist-seguranca-lgpd-starker.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      btn.textContent = '✓ Checklist baixado';
+    } finally {
+      setTimeout(function(){ btn.disabled = false; btn.textContent = original; }, 3500);
     }
   });
 </script>
