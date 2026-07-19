@@ -38,16 +38,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0B1120;
-    --panel: #121B2E;
-    --panel-2: #182238;
-    --line: #24304A;
-    --text: #E4E9F2;
-    --text-dim: #93A1BC;
-    --accent: #FF8A3D;
-    --accent-dim: #7A4A26;
+    --bg: #060A08;
+    --panel: #0D1512;
+    --panel-2: #121D18;
+    --line: #1E322A;
+    --text: #E6F5EC;
+    --text-dim: #7C9C8C;
+    --accent: #39FF88;
+    --accent-ink: #06170D;
+    --accent-dim: #123B24;
     --safe: #2DD4BF;
-    --radius: 10px;
+    --radius: 8px;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -66,7 +67,7 @@
   /* Header */
   header{
     position:sticky; top:0; z-index:100;
-    background:rgba(11,17,32,0.88); backdrop-filter:blur(10px);
+    background:rgba(6,10,8,0.88); backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
   .header-content{
@@ -79,7 +80,7 @@
   nav a:hover{color:var(--accent);}
   .nav-cta{
     font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500;
-    background:var(--accent); color:#1a1006; padding:9px 16px; border-radius:6px;
+    background:var(--accent); color:var(--accent-ink); padding:9px 16px; border-radius:6px;
     text-decoration:none; white-space:nowrap;
   }
   @media(min-width:840px){ nav{display:flex;} }
@@ -100,7 +101,7 @@
     width:min(900px,150vw); height:auto; opacity:0.5; pointer-events:none;
   }
   .hero-graph circle.node{fill:var(--panel-2); stroke:var(--line); stroke-width:1.5;}
-  .hero-graph circle.node.hit{stroke:var(--accent); fill:#1d1810;}
+  .hero-graph circle.node.hit{stroke:var(--accent); fill:#0F2318;}
   .hero-graph line{stroke:var(--line); stroke-width:1;}
   .hero-graph line.path{stroke:var(--accent); stroke-width:1.4; stroke-dasharray:4 4; opacity:0.8;}
   .terminal{
@@ -127,7 +128,7 @@
     transition:transform 0.15s ease;
   }
   .btn:active{transform:scale(0.98);}
-  .btn-primary{background:var(--accent); color:#1a1006;}
+  .btn-primary{background:var(--accent); color:var(--accent-ink);}
   .btn-ghost{background:transparent; color:var(--text); border:1px solid var(--line);}
   .hero-note{
     display:flex; align-items:center; gap:8px; justify-content:center;
@@ -198,7 +199,7 @@
   /* Pricing */
   .pricing-grid{display:grid; gap:16px;}
   .pcard{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:28px;}
-  .pcard.featured{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent), 0 20px 40px -20px rgba(255,138,61,0.25);}
+  .pcard.featured{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent), 0 20px 40px -20px rgba(57,255,136,0.2);}
   .pcard-badge{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent); margin-bottom:10px; display:block;}
   .pcard h3{font-size:20px; margin-bottom:6px;}
   .pcard > p{color:var(--text-dim); font-size:14px; margin-bottom:16px;}
@@ -208,7 +209,7 @@
   .pcard li:last-child{border-bottom:none;}
   .pcard li.no{opacity:0.5;}
   .pcard button.btn{width:100%; max-width:none; background:var(--panel-2); color:var(--text); border:1px solid var(--line); cursor:pointer; font-family:inherit;}
-  .pcard.featured button.btn{background:var(--accent); color:#1a1006; border:none;}
+  .pcard.featured button.btn{background:var(--accent); color:var(--accent-ink); border:none;}
 
   /* JV */
   .jv-box{background:var(--panel); border-left:3px solid var(--accent); border-radius:var(--radius); padding:24px; margin-bottom:14px;}
@@ -229,7 +230,7 @@
   .check-row{display:flex; align-items:flex-start; gap:10px;}
   .check-row input{width:auto; margin-top:3px;}
   .check-row label{font-size:13.5px; color:var(--text-dim); font-weight:400;}
-  #submitBtn{background:var(--accent); color:#1a1006; border:none; cursor:pointer; font-family:inherit;}
+  #submitBtn{background:var(--accent); color:var(--accent-ink); border:none; cursor:pointer; font-family:inherit;}
   #submitBtn:disabled{background:var(--line); color:var(--text-dim);}
   .form-note{font-size:12.5px; color:var(--text-dim); text-align:center; margin-top:14px;}
 
@@ -245,14 +246,14 @@
 
   .mobile-cta-bar{
     display:flex; position:fixed; left:0; right:0; bottom:0; z-index:998;
-    background:rgba(11,17,32,0.92); backdrop-filter:blur(10px);
+    background:rgba(6,10,8,0.92); backdrop-filter:blur(10px);
     border-top:1px solid var(--line); padding:10px 14px;
     padding-bottom:calc(10px + env(safe-area-inset-bottom));
     transform:translateY(100%); transition:transform 0.3s ease;
   }
   .mobile-cta-bar.show{transform:translateY(0);}
   .mobile-cta-bar a{
-    flex:1; text-align:center; background:var(--accent); color:#1a1006;
+    flex:1; text-align:center; background:var(--accent); color:var(--accent-ink);
     padding:13px; border-radius:8px; font-weight:600; font-size:14.5px; text-decoration:none;
   }
   @media(min-width:840px){ .mobile-cta-bar{display:none;} }
@@ -350,7 +351,7 @@
       <div class="term-line l3">✓ termo de autorização assinado</div>
     </div>
     <h1>Pentest ético e auditoria de segurança ofensiva<br>para o seu negócio, <em>com contrato</em></h1>
-    <p>Testes de invasão autorizados, escopo definido por escrito e relatório pronto para LGPD, ISO 27001 e PCI-DSS.</p>
+    <p>A gente tenta invadir seu sistema de propósito — com sua autorização — pra achar as brechas antes que um criminoso ache. No final, você recebe um relatório simples dizendo o que corrigir.</p>
     <div class="hero-ctas">
       <a href="#contato" class="btn btn-primary">Solicitar auditoria</a>
       <a href="#metodologia" class="btn btn-ghost">Ver metodologia</a>
@@ -403,15 +404,15 @@
 <section id="servicos" class="reveal">
   <div class="container">
     <span class="eyebrow">serviços</span>
-    <h2>O que auditamos</h2>
-    <p class="section-sub">Do reconhecimento inicial até a exploração completa, com relatório em cada etapa.</p>
+    <h2>O que fazemos</h2>
+    <p class="section-sub">Desde um raio-x simples da sua rede até uma simulação completa de ataque. Você escolhe o nível.</p>
     <div class="cards">
-      <div class="card"><div class="card-head"><h3>🔍 Reconnaissance</h3></div><p>Mapeamento completo de superfície de ataque usando Nmap + grafo correlacionador.</p><p style="font-size:13px;">Entrega: relatório de hosts, portas, serviços e vulns potenciais.</p><div class="price">R$ 200–500</div></div>
-      <div class="card"><div class="card-head"><h3>🎯 Penetração básica</h3></div><p>Teste de credenciais padrão, RTSP, SMB, WiFi. Sem exploração avançada.</p><p style="font-size:13px;">Ideal para: comércios, lanchonetes, pequenos escritórios.</p><div class="price">R$ 500–1.500</div></div>
-      <div class="card"><div class="card-head"><h3>⚔️ Penetração completa</h3></div><p>Acesso à rede, escalação de privilégio, movimentação lateral, exfiltração.</p><p style="font-size:13px;">Relatório final com roadmap de remediação.</p><div class="price">R$ 1.500–3.000</div></div>
-      <div class="card"><div class="card-head"><h3>🏢 Auditoria de segurança</h3></div><p>Análise completa de rede, servidores e aplicações. Foco em conformidade.</p><p style="font-size:13px;">Escopo customizado conforme o tamanho da rede.</p><div class="price">Sob consulta</div></div>
-      <div class="card"><div class="card-head"><h3>📊 Relatório formal</h3></div><p>PDF profissional com screenshots, análise técnica e recomendações.</p><p style="font-size:13px;">Pronto para investidores, compliance e LGPD.</p><div class="price">Incluído</div></div>
-      <div class="card"><div class="card-head"><h3>🤝 Suporte pós-auditoria</h3></div><p>Consultoria de 30 dias: validação de correções, testes de remediação.</p><p style="font-size:13px;">Acompanhamento da implementação das recomendações.</p><div class="price">+R$ 300/mês</div></div>
+      <div class="card"><div class="card-head"><h3>🔍 Raio-x da rede</h3></div><p>A gente mapeia tudo que está conectado na sua rede e visível de fora — como um scanner completo.</p><p style="font-size:13px;">Você recebe: lista de equipamentos, portas abertas e riscos encontrados.</p><div class="price">R$ 200–500</div></div>
+      <div class="card"><div class="card-head"><h3>🎯 Teste de invasão básico</h3></div><p>Tentamos entrar usando senhas padrão e falhas comuns em câmeras, redes e Wi-Fi.</p><p style="font-size:13px;">Ideal para: comércios, lanchonetes, pequenos escritórios.</p><div class="price">R$ 500–1.500</div></div>
+      <div class="card"><div class="card-head"><h3>⚔️ Teste de invasão completo</h3></div><p>Simulamos um ataque real: entramos na rede e vemos até onde um invasor conseguiria chegar.</p><p style="font-size:13px;">Relatório final com passo a passo do que corrigir.</p><div class="price">R$ 1.500–3.000</div></div>
+      <div class="card"><div class="card-head"><h3>🏢 Auditoria completa</h3></div><p>Revisão geral da rede, servidores e sistemas da empresa, focada em passar em auditorias e leis de segurança.</p><p style="font-size:13px;">Escopo ajustado ao tamanho do seu negócio.</p><div class="price">Sob consulta</div></div>
+      <div class="card"><div class="card-head"><h3>📊 Relatório explicado</h3></div><p>Documento em PDF com prints de tela, explicação simples de cada falha e o que fazer pra corrigir.</p><p style="font-size:13px;">Pronto pra mostrar a investidores ou fiscalização.</p><div class="price">Incluído</div></div>
+      <div class="card"><div class="card-head"><h3>🤝 Acompanhamento pós-teste</h3></div><p>Por 30 dias, conferimos se as correções que você fez realmente fecharam as brechas.</p><p style="font-size:13px;">Você não fica sozinho depois do relatório.</p><div class="price">+R$ 300/mês</div></div>
     </div>
   </div>
 </section>
@@ -419,15 +420,15 @@
 <section id="metodologia" class="reveal">
   <div class="container">
     <span class="eyebrow">metodologia</span>
-    <h2>Sem scanner genérico</h2>
-    <p class="section-sub">Recon combinado com análise gráfica de superfície de ataque — cada etapa alimenta a próxima.</p>
+    <h2>Como a gente pensa como um invasor</h2>
+    <p class="section-sub">Não usamos só um scanner automático. Cada etapa usa o resultado da anterior pra decidir o próximo passo — do jeito que um invasor de verdade faria.</p>
     <div class="pipeline">
-      <div class="pipe-row"><div class="pipe-num">1</div><div class="pipe-body"><span class="pipe-tag">nmap+grafo</span><strong>Mapeamento de rede</strong><span>Scan completo gerando grafo correlacionador das relações entre ativos.</span></div></div>
-      <div class="pipe-row"><div class="pipe-num">2</div><div class="pipe-body"><span class="pipe-tag">path-cost</span><strong>Path analysis</strong><span>Identificação do caminho mais fácil de exploração (easiest-path) por algoritmo de custo.</span></div></div>
-      <div class="pipe-row"><div class="pipe-num">3</div><div class="pipe-body"><span class="pipe-tag">exploit</span><strong>Exploit seletivo</strong><span>Testes focados nos caminhos identificados — sem ruído, com metodologia precisa.</span></div></div>
-      <div class="pipe-row"><div class="pipe-num">4</div><div class="pipe-body"><span class="pipe-tag">starker-v8</span><strong>STARKER Audit</strong><span>Framework próprio com módulos de XSS, SQLi, proxy e detecção de frameworks.</span></div></div>
-      <div class="pipe-row"><div class="pipe-num">5</div><div class="pipe-body"><span class="pipe-tag">report</span><strong>Relatório técnico</strong><span>Documentação com screenshots, CVSS score e recomendações priorizadas.</span></div></div>
-      <div class="pipe-row"><div class="pipe-num">6</div><div class="pipe-body"><span class="pipe-tag">validate</span><strong>Validação final</strong><span>Confirmação de cada achado, sem falsos positivos — pronto para LGPD/compliance.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">1</div><div class="pipe-body"><span class="pipe-tag">passo 1</span><strong>Mapear a rede</strong><span>Descobrimos tudo que está conectado e como cada equipamento se relaciona com os outros.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">2</div><div class="pipe-body"><span class="pipe-tag">passo 2</span><strong>Achar o caminho mais fácil</strong><span>Entre todas as brechas encontradas, identificamos por onde um invasor entraria com menos esforço.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">3</div><div class="pipe-body"><span class="pipe-tag">passo 3</span><strong>Testar de verdade</strong><span>Tentamos explorar só os pontos mais críticos — sem perder tempo com o que não é risco real.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">4</div><div class="pipe-body"><span class="pipe-tag">passo 4</span><strong>Ferramenta própria (STARKER)</strong><span>Usamos um sistema que criamos pra procurar falhas em sites, formulários e aplicativos automaticamente.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">5</div><div class="pipe-body"><span class="pipe-tag">passo 5</span><strong>Escrever o relatório</strong><span>Cada falha vem com print de tela, nível de gravidade e explicação em linguagem simples.</span></div></div>
+      <div class="pipe-row"><div class="pipe-num">6</div><div class="pipe-body"><span class="pipe-tag">passo 6</span><strong>Confirmar tudo</strong><span>Checamos de novo cada achado, pra garantir que não estamos te mandando corrigir algo que não é um problema real.</span></div></div>
     </div>
   </div>
 </section>
@@ -435,12 +436,12 @@
 <section id="portfolio" class="reveal">
   <div class="container">
     <span class="eyebrow">portfólio</span>
-    <h2>Em construção</h2>
-    <p class="section-sub">Projetos documentados (dados do cliente ofuscados).</p>
+    <h2>Alguns casos já testados</h2>
+    <p class="section-sub">Projetos reais, com os dados do cliente escondidos por sigilo.</p>
     <div class="portfolio-grid">
-      <div class="p-item"><h3>Auditoria câmera IP</h3><p>Vulnerabilidade RTSP em firmware de câmeras AltoBeam. Credencial padrão + protocolo quebrado (405).</p><div class="tags"><span class="tag">RTSP</span><span class="tag">Firmware</span><span class="tag">Credential test</span></div></div>
-      <div class="p-item"><h3>Mapeamento de rede doméstica</h3><p>Recon de rede 192.168.0.0/24 identificando 11 hosts. Correlação de fingerprints entre câmeras irmãs.</p><div class="tags"><span class="tag">Nmap</span><span class="tag">Grafo</span><span class="tag">Fingerprint</span></div></div>
-      <div class="p-item"><h3>Framework STARKER v8</h3><p>Ferramenta de scanning customizada com módulos de XSS, SQLi, proxy e detecção de frameworks.</p><div class="tags"><span class="tag">Python</span><span class="tag">Custom scanner</span><span class="tag">Open source</span></div></div>
+      <div class="p-item"><h3>Câmeras de segurança vulneráveis</h3><p>Achamos câmeras de vigilância que ainda usavam a senha de fábrica e um jeito de acessar o vídeo sem login nenhum.</p><div class="tags"><span class="tag">Câmeras IP</span><span class="tag">Senha padrão</span></div></div>
+      <div class="p-item"><h3>Mapa de uma rede doméstica</h3><p>Encontramos 11 aparelhos conectados na mesma rede e mostramos como um invasor pularia de um pro outro.</p><div class="tags"><span class="tag">Mapeamento</span><span class="tag">Wi-Fi</span></div></div>
+      <div class="p-item"><h3>Ferramenta própria STARKER</h3><p>Sistema que desenvolvemos pra procurar automaticamente falhas comuns em sites e aplicativos.</p><div class="tags"><span class="tag">Ferramenta interna</span><span class="tag">Código aberto</span></div></div>
     </div>
   </div>
 </section>
@@ -455,7 +456,7 @@
         <h3>Básico</h3><p>Ideal para testar antes de contratar</p>
         <div class="valor">R$ 200</div>
         <ul>
-          <li>✓ Nmap scan completo</li><li>✓ Relatório de portas abertas</li><li>✓ Serviços identificados</li><li>✓ Riscos óbvios apontados</li><li class="no">✗ Testes de exploração</li>
+          <li>✓ Varredura completa da rede</li><li>✓ Lista do que está exposto</li><li>✓ Serviços e equipamentos identificados</li><li>✓ Riscos mais óbvios apontados</li><li class="no">✗ Tentativa real de invasão</li>
         </ul>
         <button class="btn" data-servico="Básico">Contratar</button>
       </div>
@@ -464,7 +465,7 @@
         <h3>Intermediário</h3><p>Teste real de vulnerabilidades</p>
         <div class="valor">R$ 800</div>
         <ul>
-          <li>✓ Tudo do Básico</li><li>✓ Teste de credenciais padrão</li><li>✓ Vulnerability scan</li><li>✓ RTSP/SMB/WiFi test</li><li>✓ Relatório PDF profissional</li>
+          <li>✓ Tudo do Básico</li><li>✓ Testamos senhas padrão</li><li>✓ Busca ativa por falhas</li><li>✓ Teste em câmeras, rede e Wi-Fi</li><li>✓ Relatório em PDF explicado</li>
         </ul>
         <button class="btn" data-servico="Intermediário">Contratar</button>
       </div>
@@ -472,7 +473,7 @@
         <h3>Avançado</h3><p>Penetração completa com exploração</p>
         <div class="valor">R$ 2.000+</div>
         <ul>
-          <li>✓ Tudo do Intermediário</li><li>✓ Acesso à rede (se aplicável)</li><li>✓ Escalação de privilégio</li><li>✓ Movimentação lateral</li><li>✓ Suporte pós-auditoria 30 dias</li>
+          <li>✓ Tudo do Intermediário</li><li>✓ Tentamos entrar de fato na rede</li><li>✓ Vemos se conseguimos virar "administrador"</li><li>✓ Testamos até onde o invasor chegaria</li><li>✓ Acompanhamento por 30 dias</li>
         </ul>
         <button class="btn" data-servico="Avançado">Contratar</button>
       </div>
@@ -486,11 +487,11 @@
     <h2>Parcerias & joint venture</h2>
     <div class="jv-box">
       <h3>Procuramos</h3>
-      <p><strong>Resellers / agências de TI:</strong> revenda de serviços de pentesting com margem de 30–40%, suporte técnico e relatórios fornecidos.<br><br>
-      <strong>Consultores de compliance:</strong> parceria em auditorias que exigem segurança ofensiva (LGPD, ISO 27001, PCI-DSS).<br><br>
-      <strong>Empresas de segurança:</strong> white-label de relatórios + nossa metodologia em seus clientes.<br><br>
-      <strong>Desenvolvedoras:</strong> segurança integrada no pipeline de entrega de aplicações.<br><br>
-      <strong>Bug bounty / offensive security:</strong> formação de equipe colaborativa em caçadas de vulnerabilidades.</p>
+      <p><strong>Agências de TI:</strong> revenda nossos testes de invasão pros seus clientes e fique com 30–40% de margem. A gente cuida da parte técnica.<br><br>
+      <strong>Consultores de compliance:</strong> parceria em auditorias que exigem esse tipo de teste (LGPD, ISO 27001, PCI-DSS).<br><br>
+      <strong>Empresas de segurança:</strong> entregamos os relatórios com a sua marca, prontos pra você repassar aos seus clientes.<br><br>
+      <strong>Empresas de desenvolvimento:</strong> testamos a segurança dos seus sistemas antes de irem pro ar.<br><br>
+      <strong>Times de segurança:</strong> formamos equipe colaborativa pra caçar vulnerabilidades juntos.</p>
     </div>
     <div class="jv-box">
       <h3>O que oferecemos</h3>
@@ -700,12 +701,12 @@
   <div class="hacker-bubble" id="hackerBubble">$ escaneando superfície...</div>
   <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
     <g class="glow">
-      <path d="M32 6 C18 6 10 16 10 28 L10 46 C10 50 13 53 17 53 L47 53 C51 53 54 50 54 46 L54 28 C54 16 46 6 32 6 Z" fill="#182238" stroke="#24304A" stroke-width="1.5"/>
-      <path d="M12 30 C12 16 20 9 32 9 C44 9 52 16 52 30 L52 24 C52 14 43 8 32 8 C21 8 12 14 12 24 Z" fill="#0B1120"/>
+      <path d="M32 6 C18 6 10 16 10 28 L10 46 C10 50 13 53 17 53 L47 53 C51 53 54 50 54 46 L54 28 C54 16 46 6 32 6 Z" fill="#121D18" stroke="#1E322A" stroke-width="1.5"/>
+      <path d="M12 30 C12 16 20 9 32 9 C44 9 52 16 52 30 L52 24 C52 14 43 8 32 8 C21 8 12 14 12 24 Z" fill="#060A08"/>
       <circle class="eye" cx="24" cy="32" r="3.4"/>
       <circle class="eye" cx="40" cy="32" r="3.4"/>
-      <path d="M23 42 Q32 47 41 42" stroke="#FF8A3D" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <rect x="26" y="4" width="12" height="6" rx="2" fill="#FF8A3D"/>
+      <path d="M23 42 Q32 47 41 42" stroke="#39FF88" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="26" y="4" width="12" height="6" rx="2" fill="#39FF88"/>
     </g>
   </svg>
 </div>
